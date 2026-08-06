@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせ | DAIDA+</title>
+<style>
+  :root{
+    --navy:#12213b;
+    --blue:#2e5eff;
+    --blue-light:#e8edff;
+    --teal:#12b8a6;
+    --gray:#5b6472;
+    --gray-light:#f5f7fb;
+    --border:#e4e8f0;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",Meiryo,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--navy);
+    line-height:1.75;
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;color:var(--blue);}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:640px;margin:0 auto;padding:0 24px;}
+
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(255,255,255,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;max-width:640px;margin:0 auto;padding-left:24px;padding-right:24px;}
+  .logo{font-size:20px;font-weight:800;letter-spacing:0.5px;display:flex;align-items:center;gap:8px;color:var(--navy);}
+  .logo:hover{text-decoration:none;}
+  .logo .mark{
+    width:30px;height:30px;border-radius:8px;
+    background:linear-gradient(135deg,var(--blue),var(--teal));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:14px;font-weight:800;
+  }
+  .back-link{font-size:13px;font-weight:700;color:var(--gray);}
+  .back-link:hover{color:var(--blue);}
+
+  .page-head{padding:48px 0 8px;text-align:center;}
+  .title-pill{
+    display:inline-block;width:100%;
+    background:linear-gradient(135deg,var(--blue),#5b8bff);
+    color:#fff;font-weight:800;font-size:19px;letter-spacing:1px;
+    padding:16px 24px;border-radius:999px;
+    box-shadow:0 12px 24px -8px rgba(46,94,255,0.45);
+  }
+  .page-head p{color:var(--gray);font-size:13.5px;margin-top:16px;}
+
+  form{padding:36px 0 80px;}
+  .field{margin-bottom:26px;}
+  .field-label{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .tag{font-size:12px;font-weight:800;padding:3px 10px;border-radius:6px;color:#fff;letter-spacing:1px;}
+  .tag-required{background:var(--blue);}
+  .tag-optional{background:var(--gray);}
+  .field-label span.label-text{font-size:15px;font-weight:700;color:var(--navy);}
+
+  input, textarea{
+    width:100%;border:1px solid var(--border);border-radius:12px;
+    padding:14px 16px;font-size:14.5px;font-family:inherit;color:var(--navy);
+    background:var(--white);transition:border-color .15s ease;
+  }
+  input::placeholder, textarea::placeholder{color:#a7aec0;}
+  input:focus, textarea:focus{outline:none;border-color:var(--blue);}
+  textarea{min-height:160px;resize:vertical;}
+
+  .name-row{display:flex;gap:14px;}
+  .name-row input{width:100%;}
+
+  .submit-btn{
+    width:100%;padding:16px;border:none;border-radius:999px;
+    background:var(--blue);color:#fff;font-size:15.5px;font-weight:800;
+    cursor:pointer;box-shadow:0 10px 22px -8px rgba(46,94,255,0.5);
+    transition:background .15s ease, transform .15s ease;
+  }
+  .submit-btn:hover{background:#2450e0;transform:translateY(-1px);}
+  .submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+
+  .status-msg{
+    display:none;margin-top:16px;padding:14px 16px;border-radius:12px;
+    font-size:13.5px;text-align:center;
+  }
+  .status-msg.show{display:block;}
+  .status-success{background:#e4f9ee;color:#1a9a5c;}
+  .status-error{background:#fdeceb;color:#c8402c;}
+
+  footer{border-top:1px solid var(--border);padding:24px 0;text-align:center;}
+  .footer-bottom{font-size:12.5px;color:var(--gray);}
+
+  @media (max-width:480px){
+    .name-row{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="logo" href="daida-homepage.html"><span class="mark">D+</span>DAIDA+</a>
+    <a class="back-link" href="daida-homepage.html">← ホームに戻る</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="title-pill">お問い合わせフォーム</div>
+    <p>ご質問・ご相談など、お気軽にお問い合わせください。</p>
+  </div>
+
+  <!--
+    ▼設定方法(このコメントは公開ページには表示されません)
+    1. https://formspree.io で無料アカウントを作成(support@daida-store.jp など受信したいメールアドレスで登録)
+    2. 「+ New Form」でフォームを作成
+    3. 発行された送信先URL(例: https://formspree.io/f/xxxxxxxx)を、
+       下のform要素の action="https://formspree.io/f/YOUR_FORM_ID" の
+       YOUR_FORM_ID 部分に差し替える
+    4. 保存して公開すれば、送信内容がsupport@daida-store.jp宛にメールで届きます
+  -->
+  <form id="contact-form" action="https://formspree.io/f/xwvggoao" method="POST">
+    <input type="hidden" name="_subject" value="【DAIDA+】お問い合わせフォームより">
+
+    <div class="field">
+      <div class="field-label">
+        <span class="tag tag-required">必須</span>
+        <span class="label-text">店舗名・会社名</span>
+      </div>
+      <input type="text" name="company" placeholder="例：株式会社〇〇 / 〇〇店" required>
+    </div>
+
+    <div class="field">
+      <div class="field-label">
+        <span class="tag tag-required">必須</span>
+        <span class="label-text">お名前</span>
+      </div>
+      <div class="name-row">
+        <input type="text" name="last_name" placeholder="姓" required>
+        <input type="text" name="first_name" placeholder="名" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="field-label">
+        <span class="tag tag-required">必須</span>
+        <span class="label-text">メールアドレス</span>
+      </div>
+      <input type="email" name="email" placeholder="example@daida-store.jp" required>
+    </div>
+
+    <div class="field">
+      <div class="field-label">
+        <span class="tag tag-optional">任意</span>
+        <span class="label-text">電話番号</span>
+      </div>
+      <input type="tel" name="phone" placeholder="090-1234-5678">
+    </div>
+
+    <div class="field">
+      <div class="field-label">
+        <span class="tag tag-required">必須</span>
+        <span class="label-text">お問い合わせ内容</span>
+      </div>
+      <textarea name="message" placeholder="こちらにご記入ください" required></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">送信する</button>
+    <div id="status-success" class="status-msg status-success">送信が完了しました。ありがとうございます。</div>
+    <div id="status-error" class="status-msg status-error">送信に失敗しました。時間をおいて再度お試しください。</div>
+  </form>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-bottom">© 2026 DAIDA+. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const successMsg = document.getElementById('status-success');
+  const errorMsg = document.getElementById('status-error');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    successMsg.classList.remove('show');
+    errorMsg.classList.remove('show');
+
+    const submitBtn = form.querySelector('.submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '送信中…';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        form.reset();
+        successMsg.classList.add('show');
+      } else {
+        errorMsg.classList.add('show');
+      }
+    } catch (err) {
+      errorMsg.classList.add('show');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '送信する';
+    }
+  });
+</script>
+
+</body>
+</html>
