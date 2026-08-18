@@ -223,6 +223,59 @@
   .stat h4{font-size:38px;font-weight:800;color:var(--blue);margin-bottom:6px;}
   .stat p{font-size:14px;color:var(--gray);}
 
+  /* Registration guide */
+  .guide{background:var(--gray-light);}
+  .guide-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:28px;}
+  .guide-step{
+    background:#fff;border:1px solid var(--border);border-radius:18px;
+    padding:30px 24px;text-align:center;
+  }
+  .guide-step .step-num{
+    width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;
+    margin:0 auto 16px;
+  }
+  .guide-step .step-icon{font-size:30px;margin-bottom:12px;}
+  .guide-step h3{font-size:15.5px;font-weight:700;margin-bottom:8px;}
+  .guide-step p{font-size:13.5px;color:var(--gray);}
+  .iphone-note{
+    background:#fff;border:1px solid var(--border);border-radius:18px;
+    padding:22px 28px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  }
+  .iphone-note .badge{
+    font-size:12px;font-weight:800;color:var(--blue);background:var(--blue-light);
+    padding:5px 12px;border-radius:999px;white-space:nowrap;
+  }
+  .iphone-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;font-weight:700;color:var(--navy);}
+  .iphone-flow .arrow{color:#b6bdd0;font-weight:400;}
+
+  /* Pricing */
+  .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .price-card{
+    position:relative;border:1px solid var(--border);border-radius:20px;
+    padding:34px 26px;text-align:center;background:#fff;
+  }
+  .price-card.featured{border-color:var(--blue);box-shadow:0 24px 44px -20px rgba(46,94,255,0.35);}
+  .price-card .badge{
+    position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:var(--blue);color:#fff;font-size:12px;font-weight:800;
+    padding:5px 16px;border-radius:999px;white-space:nowrap;
+  }
+  .price-card .plan-name{font-size:14px;font-weight:700;color:var(--gray);margin-bottom:14px;}
+  .price-card .plan-price{font-size:32px;font-weight:800;color:var(--navy);}
+  .price-card .plan-price span{font-size:13.5px;font-weight:600;color:var(--gray);}
+  .price-card .plan-off{font-size:12.5px;font-weight:800;color:var(--teal);margin-top:6px;min-height:16px;}
+  .price-note{text-align:center;color:var(--gray);font-size:13px;margin-top:28px;}
+
+  /* Comparison table */
+  .compare-table-wrap{overflow-x:auto;}
+  table.compare-table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:620px;}
+  table.compare-table th, table.compare-table td{padding:16px 14px;border:1px solid var(--border);text-align:center;color:var(--gray);}
+  table.compare-table th{background:var(--gray-light);font-weight:700;color:var(--navy);}
+  table.compare-table td:first-child, table.compare-table th:first-child{text-align:left;font-weight:700;color:var(--navy);background:var(--gray-light);}
+  table.compare-table th.highlight, table.compare-table td.highlight{background:var(--blue-light);color:var(--navy);font-weight:800;}
+  .compare-note{color:var(--gray);font-size:12.5px;margin-top:16px;}
+
   /* CTA */
   .cta{
     background:linear-gradient(135deg,var(--navy),#1a2f52);
@@ -251,14 +304,15 @@
   @media (max-width:900px){
     .hero-inner{grid-template-columns:1fr;}
     .hero h1{font-size:32px;}
-    .problem-grid,.features-grid,.steps,.stats-grid{grid-template-columns:repeat(2,1fr);}
+    .problem-grid,.features-grid,.steps,.stats-grid,.guide-steps,.pricing-grid{grid-template-columns:repeat(2,1fr);}
     .cta{margin:0 16px;padding:48px 24px;}
   }
   @media (max-width:560px){
-    .problem-grid,.features-grid,.steps,.stats-grid,.faq-grid{grid-template-columns:1fr;}
+    .problem-grid,.features-grid,.steps,.stats-grid,.faq-grid,.guide-steps,.pricing-grid{grid-template-columns:1fr;}
     .hero{padding:64px 0 48px;}
     .hero h1{font-size:26px;}
     .section{padding:64px 0;}
+    .iphone-note{flex-direction:column;align-items:flex-start;}
   }
 </style>
 </head>
@@ -270,6 +324,7 @@
     <nav class="nav-links">
       <a href="#features">特徴</a>
       <a href="#how">使い方</a>
+      <a href="#pricing">料金</a>
       <a href="#faq">よくある質問</a>
     </nav>
     <div class="nav-cta">
@@ -448,6 +503,135 @@
   </div>
 </section>
 
+<section class="section guide" id="guide">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">REGISTER</span>
+      <h2>スタッフの登録もかんたん3ステップ</h2>
+      <p>QRコードを読み取るだけ。アプリのインストールも不要です。</p>
+    </div>
+    <div class="guide-steps">
+      <div class="guide-step">
+        <div class="step-num">1</div>
+        <div class="step-icon">📷</div>
+        <h3>店舗用QRコードを読み取る</h3>
+        <p>スタッフはお手持ちのスマホでQRコードを読み取るだけ。</p>
+      </div>
+      <div class="guide-step">
+        <div class="step-num">2</div>
+        <div class="step-icon">📝</div>
+        <h3>お名前を登録</h3>
+        <p>店舗で分かるお名前を登録（あだ名でもOK）。</p>
+      </div>
+      <div class="guide-step">
+        <div class="step-num">3</div>
+        <div class="step-icon">🔔</div>
+        <h3>通知を許可する</h3>
+        <p>通知を許可すれば、代理募集の連絡がすぐ届きます。</p>
+      </div>
+    </div>
+    <div class="iphone-note">
+      <span class="badge">iPhoneをお使いの方</span>
+      <div class="iphone-flow">
+        <span>共有ボタンをタップ</span><span class="arrow">→</span>
+        <span>「ホーム画面に追加」</span><span class="arrow">→</span>
+        <span>DAIDA+を開く</span><span class="arrow">→</span>
+        <span>通知を許可</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">PRICING</span>
+      <h2>料金プラン</h2>
+      <p>まずは1か月無料。無料期間終了後も月2回までは無料でご利用いただけます。</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="plan-name">1か月プラン</div>
+        <div class="plan-price">980<span>円（税込）/月</span></div>
+        <div class="plan-off">&nbsp;</div>
+      </div>
+      <div class="price-card">
+        <div class="plan-name">3か月プラン</div>
+        <div class="plan-price">2,352<span>円（税込）</span></div>
+        <div class="plan-off">20%OFF</div>
+      </div>
+      <div class="price-card featured">
+        <span class="badge">最大50%OFF</span>
+        <div class="plan-name">12か月プラン</div>
+        <div class="plan-price">5,880<span>円（税込）</span></div>
+        <div class="plan-off">50%OFF</div>
+      </div>
+    </div>
+    <p class="price-note">※月3回以上の代理募集をご利用の場合に、いずれかのプランへのご加入が必要です。スタッフの利用は常に無料です。</p>
+  </div>
+</section>
+
+<section class="section" id="compare" style="background:var(--gray-light);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">COMPARE</span>
+      <h2>他社ツールとの比較</h2>
+      <p>35名のスタッフが在籍する店舗で利用した場合の一例です。</p>
+    </div>
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th class="highlight">DAIDA+</th>
+            <th>A社</th>
+            <th>B社</th>
+            <th>C社</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>料金システム</td>
+            <td class="highlight">1店舗ごとの定額</td>
+            <td>1ユーザー課金</td>
+            <td>1ユーザー課金</td>
+            <td>完全無料</td>
+          </tr>
+          <tr>
+            <td>月額コスト（35名の場合）</td>
+            <td class="highlight">980円（税込）</td>
+            <td>15,750円</td>
+            <td>11,550円</td>
+            <td>0円</td>
+          </tr>
+          <tr>
+            <td>スタッフ登録数</td>
+            <td class="highlight">何人でも一律料金</td>
+            <td>人数に応じて増加</td>
+            <td>人数に応じて増加</td>
+            <td>無料</td>
+          </tr>
+          <tr>
+            <td>個人連絡先の交換</td>
+            <td class="highlight">不要</td>
+            <td>必要</td>
+            <td>必要</td>
+            <td>必要</td>
+          </tr>
+          <tr>
+            <td>動作・通信量</td>
+            <td class="highlight">必要な機能に絞った軽量設計</td>
+            <td>通常</td>
+            <td>通常</td>
+            <td>動作の遅さを指摘する声も</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="compare-note">※他社ツールの情報は、各社の公表内容をもとに作成した一例です。詳細は各社の公式情報をご確認ください。</p>
+  </div>
+</section>
+
 <section class="stats">
   <div class="wrap stats-grid">
     <div class="stat">
@@ -526,6 +710,10 @@
         <h3>通知をオフにしていても利用できますか？</h3>
         <p>ご利用いただけますが、代理募集の通知は届かなくなります。迅速な対応のため、通知をオンにしていただくことをおすすめします。</p>
       </div>
+      <div class="feature-card">
+        <h3>通信量が心配です。</h3>
+        <p>DAIDA+は必要な機能に絞った軽量設計のため、通信量を抑えてご利用いただけます。動作も軽く、電波の弱い場所でも使いやすいのが特長です。</p>
+      </div>
     </div>
   </div>
 </section>
@@ -542,6 +730,7 @@
           <h5>サービス</h5>
           <a href="#features">特徴</a>
           <a href="#how">使い方</a>
+          <a href="#pricing">料金</a>
           <a href="#faq">よくある質問</a>
         </div>
         <div class="footer-col">
