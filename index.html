@@ -228,6 +228,11 @@
 
   /* Registration guide */
   .guide{background:var(--gray-light);}
+  .guide-photo{
+    max-width:900px;margin:0 auto 36px;border-radius:28px;overflow:hidden;
+    box-shadow:0 18px 45px rgba(20,47,93,.12);background:#eef3f8;
+  }
+  .guide-photo img{width:100%;height:auto;display:block;}
   .guide-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:28px;}
   .guide-step{
     background:#fff;border:1px solid var(--border);border-radius:18px;
@@ -337,24 +342,7 @@
     .iphone-note{flex-direction:column;align-items:flex-start;}
   }
 
-/* PHOTO 2 / PHOTO 3 */
-.photo-split{
-  display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:42px;
-  align-items:center;
-}
-.photo-split img{width:100%;height:100%;object-fit:cover;display:block;}
-.photo-split .photo-box{
-  min-height:340px;border-radius:28px;overflow:hidden;
-  box-shadow:0 18px 45px rgba(20,47,93,.12);background:#eef3f8;
-}
-.photo-copy .section-tag{margin-bottom:14px;}
-.photo-copy h2{
-  font-size:clamp(28px,3vw,42px);line-height:1.35;
-  margin:0 0 16px;color:var(--navy);
-}
-.photo-copy p{margin:0;color:var(--gray);font-size:16px;line-height:1.9;}
+/* PHOTO 3 */
 .photo3-box{
   position:relative;
   border-radius:28px;overflow:hidden;
@@ -381,8 +369,6 @@
   opacity:.95;
 }
 @media(max-width:800px){
-  .photo-split{grid-template-columns:1fr;gap:24px;}
-  .photo-split .photo-box{min-height:260px;}
   .photo3-overlay{padding:24px 22px 18px;}
   .photo3-overlay span{font-size:13px;}
 }
@@ -531,6 +517,9 @@
 <h2>スタッフ登録もかんたん3ステップ</h2>
 <p>店舗用QRコードから登録できます。</p>
 </div>
+<div class="guide-photo">
+<img alt="店舗スタッフが店内掲示のQRコードをスマートフォンで読み取るイメージ" loading="lazy" src="photo2.jpg"/>
+</div>
 <div class="guide-steps">
 <div class="guide-step">
 <div class="step-num">1</div>
@@ -561,18 +550,7 @@
 </div>
 </div>
 </div>
-</section><section class="section" id="photo-register">
-<div class="wrap photo-split">
-<div class="photo-box">
-<img alt="店舗スタッフが店内掲示のQRコードをスマートフォンで読み取るイメージ" loading="lazy" src="photo2.jpg"/>
-</div>
-<div class="photo-copy">
-<span class="section-tag">SMARTPHONE</span>
-<h2>登録も、スマートフォンから。</h2>
-<p>店舗用QRコードを読み取り、名前を登録して通知を許可するだけ。</p>
-</div>
-</div>
-</section><section class="section" id="安心して使える3つの理由">
+</section><section class="section" id="features">
 <div class="wrap">
 <div class="section-head">
 <span class="section-tag">安心して使える3つの理由</span>
@@ -592,7 +570,7 @@
 <div class="feature-card">
 <div class="feature-icon">0円</div>
 <h3>スタッフ利用料0円</h3>
-<p>代理募集を受け取ったり応募したりするための料金は、スタッフ側にはかかりません。</p>
+<p>代理募集の受信・応募にDAIDA+の利用料はかかりません。ご利用時のデータ通信料は、ご契約の料金プランに応じて発生します。</p>
 </div>
 </div>
 </div>
@@ -709,7 +687,7 @@
 <span class="section-tag">FAQ</span>
 <h2>よくある質問</h2>
 </div>
-<div class="features-grid faq-grid"><div class="feature-card"><h3>代理募集以外の連絡にも利用できますか？</h3><p>いいえ。DAIDA+は代理募集に関する機能に特化しています。</p></div><div class="feature-card"><h3>複数の店舗で勤務するスタッフも利用できますか？</h3><p>はい。勤務する店舗ごとに登録すれば、それぞれの店舗から代理募集を受け取れます。</p></div><div class="feature-card"><h3>誰が代理募集を作成できますか？</h3><p>店舗責任者や時間帯責任者など、管理者権限を持つ方が作成できます。</p></div><div class="feature-card"><h3>応募した後にキャンセルできますか？</h3><p>DAIDA+上ではキャンセルできません。店舗責任者へ直接ご連絡ください。</p></div></div>
+<div class="features-grid faq-grid"><div class="feature-card"><h3>代理募集以外の連絡にも利用できますか？</h3><p>いいえ。DAIDA+は代理募集に関する機能に特化しています。</p></div><div class="feature-card"><h3>複数の店舗で勤務するスタッフも利用できますか？</h3><p>はい。勤務する店舗ごとに登録すれば、それぞれの店舗から代理募集を受け取れます。</p></div><div class="feature-card"><h3>誰が代理募集を作成できますか？</h3><p>店舗責任者や時間帯責任者など、管理者権限を持つ方が作成できます。</p></div><div class="feature-card"><h3>応募した後にキャンセルできますか？</h3><p>DAIDA+上ではキャンセルできません。店舗責任者へ直接ご連絡ください。</p></div><div class="feature-card"><h3>データ通信量は多くなりますか？</h3><p>DAIDA+は、代理募集に必要な機能に絞った軽量設計です。通信料はご契約の料金プランにより異なります。</p></div></div>
 </div>
 </section>
 <footer>
