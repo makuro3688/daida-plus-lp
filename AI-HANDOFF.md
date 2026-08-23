@@ -443,11 +443,11 @@ A. DAIDA+上ではキャンセルできません。店舗責任者へ直接ご�
 
 管理者ログイン:
 
-`https://shift-help-notify-app.onrender.com/manager.html`
+`https://app.daida-store.jp/manager.html`
 
 新規登録:
 
-`https://shift-help-notify-app.onrender.com/signup.html`
+`https://app.daida-store.jp/signup.html`
 
 これらはホームページの主要CTAから使用中。
 
@@ -505,6 +505,10 @@ Netlify
 
 ## アプリ
 Render
+
+公開URL: `https://app.daida-store.jp/`
+
+旧Render URLは、既存のQRコード・通知購読への影響を避けるため、移行確認が完了するまで停止しない。
 
 ## DB
 Supabase

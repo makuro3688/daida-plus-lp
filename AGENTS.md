@@ -319,9 +319,9 @@ PHOTO2は現在の確定画像を維持します。
 現在の主要リンク:
 
 - 管理者ログイン:
-  `https://shift-help-notify-app.onrender.com/manager.html`
+  `https://app.daida-store.jp/manager.html`
 - 新規登録:
-  `https://shift-help-notify-app.onrender.com/signup.html`
+  `https://app.daida-store.jp/signup.html`
 
 関連ページ:
 
@@ -361,7 +361,7 @@ Codexが直接編集できる場合は、Gitの通常フローで安全に変更
 - ドメイン: `daida-store.jp`
 - DNS: Cloudflare
 - Webフロント: Netlify
-- アプリ: Render
+- アプリ: Render（公開URL: `https://app.daida-store.jp/`）
 - DB: Supabase
 - 送信メール: Resend
 - 受信メール: Cloudflare Email Routing → Gmail
