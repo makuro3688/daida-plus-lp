@@ -501,12 +501,16 @@ A. DAIDA+上ではキャンセルできません。店舗責任者へ直接ご�
 Cloudflare
 
 ## Webフロント
-**要確認。**
+**GitHub Pages**
 
-- Netlifyのデプロイは2026-08-09で停止している
-- 本番サイトでは最新の`photo2.jpg`・`photo3.jpg`が表示されている
-- GitHub Pagesから配信されている可能性があるが、現時点では未確定
-- 実際のデプロイ元と配信経路を確認するまで、Netlify／GitHub Pagesのどちらとも断定しない
+根拠:
+
+- `daida-store.jp`のレスポンスヘッダで`X-Fastly-Request-Id`を確認
+- `X-Served-By: cache-nrt-...`を確認
+- `Via: 1.1 varnish`を確認
+- Fastly／VarnishはGitHub PagesのCDN構成であり、Netlifyでは付与されない
+
+Netlifyのデプロイは2026-08-09で停止済み。`mellifluous-selkie-12d57f.netlify.app`は現在の本番配信には使用されていない残骸。
 
 ## アプリ
 Render
@@ -537,12 +541,13 @@ Cloudflare Email Routing
 
 # 22. DNS / メールの確認済み事項
 
-Web:
+Web配信:
 
-- root A → `75.2.60.5`
-- `www` CNAME → `mellifluous-selkie-12d57f.netlify.app`
+- 本番`daida-store.jp`のレスポンスヘッダに`X-Fastly-Request-Id`、`X-Served-By: cache-nrt-...`、`Via: 1.1 varnish`がある
+- 上記はGitHub PagesのCDN構成を示すため、現在のWebフロントはGitHub Pages
+- Netlifyの`mellifluous-selkie-12d57f.netlify.app`は2026-08-09にデプロイ停止済みで、現在は未使用の残骸
 
-古いGitHub Pages向けAレコード・旧 `www` 設定は整理済み。
+過去に記録されたroot A（`75.2.60.5`）と`www` CNAME（`mellifluous-selkie-12d57f.netlify.app`）は、現在の本番配信元を示す根拠として扱わない。DNS設定を変更する場合は、その時点の実レコードを改めて確認する。
 
 Cloudflare Email Routing:
 

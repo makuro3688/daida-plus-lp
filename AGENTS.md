@@ -349,7 +349,7 @@ Codexが直接編集できる場合は、Gitの通常フローで安全に変更
 - `index.html`, `photo2.jpg`, `photo3.jpg` の相対パスを壊さない
 - 画像を移動する場合はHTML側も同時に修正
 - デプロイ方式やDNSを、依頼なしに変更しない
-- GitHub Pages / Netlify の状態は、実際の設定を確認してから判断する
+- WebフロントはGitHub Pages。停止済みの旧Netlifyサイトを本番配信元と誤認しない
 - 本番反映前に差分を確認する
 
 ---
@@ -360,11 +360,11 @@ Codexが直接編集できる場合は、Gitの通常フローで安全に変更
 
 - ドメイン: `daida-store.jp`
 - DNS: Cloudflare
-- Webフロント: Netlify
+- Webフロント: GitHub Pages
 - アプリ: Render（公開URL: `https://app.daida-store.jp/`）
 - DB: Supabase
 - 送信メール: Resend
-- 受信メール: Cloudflare Email Routing → Gmail
+- 受信メール: Cloudflare Email Routing（転送先は要確認）
 
 インフラ設定を勝手に変更しないでください。
 
