@@ -492,7 +492,7 @@ A. DAIDA+上ではキャンセルできません。店舗責任者へ直接ご�
 
 # 21. インフラ構成
 
-2026-08時点の確認済み構成。
+2026-08時点の構成。確認が完了していない項目は「要確認」として記載する。
 
 ## ドメイン
 `daida-store.jp`
@@ -501,7 +501,12 @@ A. DAIDA+上ではキャンセルできません。店舗責任者へ直接ご�
 Cloudflare
 
 ## Webフロント
-Netlify
+**要確認。**
+
+- Netlifyのデプロイは2026-08-09で停止している
+- 本番サイトでは最新の`photo2.jpg`・`photo3.jpg`が表示されている
+- GitHub Pagesから配信されている可能性があるが、現時点では未確定
+- 実際のデプロイ元と配信経路を確認するまで、Netlify／GitHub Pagesのどちらとも断定しない
 
 ## アプリ
 Render
@@ -518,7 +523,7 @@ Resend
 
 ## 受信メール
 Cloudflare Email Routing  
-→ Gmail宛へ転送
+→ **転送先は要確認。Yahoo!メール宛の可能性があるが、現時点では未確定**
 
 ## support
 `support@daida-store.jp`
