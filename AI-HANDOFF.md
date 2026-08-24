@@ -492,7 +492,7 @@ A. DAIDA+上ではキャンセルできません。店舗責任者へ直接ご�
 
 # 21. インフラ構成
 
-2026-08時点の構成。確認が完了していない項目は「要確認」として記載する。
+2026-08時点の確認済み構成。
 
 ## ドメイン
 `daida-store.jp`
@@ -527,7 +527,10 @@ Resend
 
 ## 受信メール
 Cloudflare Email Routing  
-→ **転送先は要確認。Yahoo!メール宛の可能性があるが、現時点では未確定**
+→ **`erikanagitan@gmail.com`（Verified）**
+
+- Routing status: **Enabled**
+- 2026-08-24確認時点の直近7日: 6通受信・6通すべて転送成功
 
 ## support
 `support@daida-store.jp`
@@ -551,8 +554,10 @@ Web配信:
 
 Cloudflare Email Routing:
 
-- 有効化済み
+- Routing status: **Enabled**
 - `support@daida-store.jp` ルーティング有効
+- 転送先: `erikanagitan@gmail.com`（Verified）
+- 2026-08-24確認時点の直近7日: 6通受信・6通すべて転送成功
 
 Resend:
 

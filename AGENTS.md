@@ -364,7 +364,7 @@ Codexが直接編集できる場合は、Gitの通常フローで安全に変更
 - アプリ: Render（公開URL: `https://app.daida-store.jp/`）
 - DB: Supabase
 - 送信メール: Resend
-- 受信メール: Cloudflare Email Routing（転送先は要確認）
+- 受信メール: Cloudflare Email Routing → `erikanagitan@gmail.com`（Verified、Routing status: Enabled）
 
 インフラ設定を勝手に変更しないでください。
 
