@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DAIDA+ チラシ 表面</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    .page { padding: 10mm 11mm 0; }
+    .top { display: grid; grid-template-columns: 1.2fr .8fr; gap: 7mm; height: 61mm; }
+    .headline { margin: 2mm 0 0; color: var(--daida-navy); font-size: 9.2mm; line-height: 1.25; font-weight: 900; letter-spacing: -.04em; }
+    .photo-placeholder { height: 56mm; border-radius: 5mm; background: #d5d8dc; border: .5mm dashed #8b929a; display: grid; place-content: center; color: #60666d; text-align: center; font-size: 3.4mm; font-weight: 700; }
+    .brand { margin-top: 1mm; display: flex; align-items: baseline; gap: 5mm; }
+    .brand .logo { font-size: 17mm; line-height: 1; }
+    .brand-copy { font-size: 7mm; font-weight: 900; color: var(--daida-navy); }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-top: 5mm; }
+    .feature { min-height: 45mm; padding: 5mm 4mm; text-align: center; }
+    .feature-icon { width: 12mm; height: 12mm; margin: 0 auto 2mm; border-radius: 50%; background: var(--daida-navy); color: #fff; display: grid; place-items: center; font-size: 6mm; font-weight: 900; }
+    .feature h2 { margin: 0 0 2mm; color: var(--daida-navy); font-size: 4.5mm; line-height: 1.35; font-weight: 900; }
+    .feature p { margin: 0; font-size: 3.2mm; line-height: 1.55; font-weight: 600; }
+    .campaign { margin-top: 5mm; padding: 5mm 7mm 4mm; border: 1mm solid var(--daida-red); border-radius: 5mm; background: #fff; text-align: center; }
+    .campaign-label { display: inline-block; margin-top: -9mm; padding: 1.5mm 8mm; border-radius: 99mm; background: var(--daida-red); color: #fff; font-size: 4mm; font-weight: 900; }
+    .campaign h2 { margin: 2mm 0 .5mm; color: var(--daida-red); font-size: 8.2mm; line-height: 1.25; font-weight: 900; }
+    .campaign .lead { margin: 0; font-size: 3.8mm; font-weight: 700; }
+    .campaign .after { margin: 2.5mm 0 0; color: var(--daida-navy); font-size: 4.4mm; line-height: 1.5; font-weight: 900; }
+    .campaign .price { color: var(--daida-red); font-size: 5.2mm; }
+    .campaign .note { margin: 2.5mm auto 0; padding-top: 2mm; border-top: .25mm solid #ccc; font-size: 2.8mm; line-height: 1.45; font-weight: 600; text-align: left; max-width: 170mm; }
+    .cta { position: absolute; left: 0; right: 0; bottom: 0; height: 46mm; padding: 5mm 11mm; background: var(--daida-navy); color: #fff; display: grid; grid-template-columns: 1fr 27mm 1fr; align-items: center; gap: 6mm; }
+    .cta-main { font-size: 6mm; line-height: 1.3; font-weight: 900; }
+    .qr { width: 27mm; height: 27mm; padding: 1.5mm; border-radius: 2mm; background: #fff; }
+    .cta-brand .logo { color: #fff; font-size: 8mm; }
+    .cta-brand p { margin: 1mm 0 0; font-size: 3.3mm; }
+    .more { margin-top: 2mm; color: var(--daida-yellow); font-size: 3.7mm; font-weight: 900; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="top">
+      <h1 class="headline">急な欠勤、<br>そのたびに<span class="marker">電話</span>して<br>いませんか？</h1>
+      <div class="photo-placeholder" role="img" aria-label="店舗スタッフ写真の差し替え位置">店舗スタッフ写真<br>推奨 960 × 1400px</div>
+    </section>
+    <section class="brand">
+      <div class="logo">DAIDA+</div>
+      <div class="brand-copy">代理探しを、<span class="red marker">一斉募集</span>へ。</div>
+    </section>
+    <section class="features">
+      <article class="feature card"><div class="feature-icon">一斉</div><h2>スマートフォンから<br>代理募集を送信</h2><p>登録スタッフへ<br>一斉にお知らせ</p></article>
+      <article class="feature card"><div class="feature-icon">鍵</div><h2>社内限定</h2><p>登録スタッフだけが<br>対象だから安心</p></article>
+      <article class="feature card"><div class="feature-icon">OFF</div><h2>個人SNSで<br>つながらなくていい</h2><p>仕事の連絡は、<br>仕事の仕組みで</p></article>
+    </section>
+    <section class="campaign">
+      <div class="campaign-label">リリース記念キャンペーン</div>
+      <h2>まずは3か月間、完全無料！</h2>
+      <p class="lead">（ご利用回数に関係なく、初回3か月は0円）</p>
+      <p class="after">4か月目以降は、月2回まで無料<br>月3回以上のご利用月のみ <span class="price">月額980円（税込）</span></p>
+      <p class="note">※同じメールアドレスで2店舗目以降を登録される場合、本キャンペーンの無料期間は適用されません。</p>
+    </section>
+    <footer class="cta">
+      <div class="cta-main">まずは無料で<br>お試しください！</div>
+      <img class="qr" src="assets/qr-code.png" alt="DAIDA+公式サイトのQRコード">
+      <div class="cta-brand"><div class="logo">DAIDA+ <small>（ダイダ）</small></div><p>daida-store.jp</p><div class="more">詳しくは裏面へ▶</div></div>
+    </footer>
+  </main>
+</body>
+</html>

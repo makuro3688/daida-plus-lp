@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DAIDA+ チラシ 裏面</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    .page { padding: 8mm 10mm 0; }
+    header { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 3mm; border-bottom: 1.5mm solid var(--daida-navy); }
+    header .logo { font-size: 8mm; }
+    header h1 { margin: 0; color: var(--daida-navy); font-size: 6mm; font-weight: 900; }
+    h2.section-title { margin: 3mm 0 2mm; color: var(--daida-navy); font-size: 4.3mm; line-height: 1.2; font-weight: 900; }
+    table { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; border: .4mm solid var(--daida-navy); border-radius: 3mm; background: #fff; font-size: 2.45mm; line-height: 1.25; }
+    th, td { padding: 1.7mm 1.2mm; border-right: .2mm solid #b9c4df; border-bottom: .2mm solid #b9c4df; text-align: center; }
+    th:last-child, td:last-child { border-right: 0; }
+    tr:last-child td { border-bottom: 0; }
+    th { background: var(--daida-navy); color: #fff; font-weight: 900; }
+    th:first-child, td:first-child { width: 26%; text-align: left; font-weight: 800; }
+    th.daida, td.daida { background: #edf2ff; color: var(--daida-navy); font-weight: 900; }
+    .compare-note { margin: 1.2mm 0 0; font-size: 2.1mm; line-height: 1.4; color: #444; }
+    .middle { display: grid; grid-template-columns: .9fr 1.1fr; gap: 4mm; margin-top: 2mm; }
+    .faq, .pricing { padding: 3mm 4mm; }
+    .faq-item + .faq-item { margin-top: 2mm; padding-top: 2mm; border-top: .2mm solid #ccd3df; }
+    .faq h3 { margin: 0; color: var(--daida-navy); font-size: 2.8mm; line-height: 1.35; }
+    .faq p { margin: .7mm 0 0; font-size: 2.45mm; line-height: 1.4; }
+    .pricing { border-color: var(--daida-red); text-align: center; }
+    .pricing .release { color: var(--daida-red); font-size: 3.2mm; font-weight: 900; }
+    .pricing .free { margin: .5mm 0; color: var(--daida-red); font-size: 5mm; line-height: 1.2; font-weight: 900; }
+    .pricing .sub { margin: 0; font-size: 2.5mm; font-weight: 700; }
+    .pricing .after { margin: 1mm 0; color: var(--daida-navy); font-size: 3mm; font-weight: 900; }
+    .pricing .plan-label { padding: 1mm; background: var(--daida-navy); color: #fff; font-size: 2.25mm; font-weight: 700; }
+    .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2mm; margin-top: 1.3mm; }
+    .plan { padding: 1.5mm .8mm; border-radius: 2mm; background: #edf2ff; color: var(--daida-navy); font-size: 2.2mm; font-weight: 800; }
+    .plan strong { display: block; margin-top: .5mm; font-size: 3mm; }
+    .plan em { color: var(--daida-red); font-style: normal; }
+    .pricing .note { margin: 1.5mm 0 0; text-align: left; font-size: 2.2mm; line-height: 1.35; font-weight: 600; }
+    .guide { margin-top: 2.5mm; padding: 3mm 4mm; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
+    .step { position: relative; padding: 2mm 2mm 2mm 11mm; min-height: 14mm; border-radius: 2.5mm; background: #edf2ff; }
+    .step b { position: absolute; left: 2mm; top: 2mm; width: 7mm; height: 7mm; border-radius: 50%; background: var(--daida-navy); color: #fff; display: grid; place-items: center; font-size: 3mm; }
+    .step strong { display: block; color: var(--daida-navy); font-size: 2.8mm; }
+    .step span { font-size: 2.25mm; line-height: 1.3; }
+    .iphone { margin: 2mm 0 0; padding: 1.5mm 3mm; border-radius: 2mm; background: #f1f1f1; font-size: 2.35mm; line-height: 1.4; }
+    .footer { position: absolute; left: 0; right: 0; bottom: 0; height: 35mm; padding: 4mm 10mm; background: var(--daida-navy); color: #fff; display: grid; grid-template-columns: 26mm 1fr auto; align-items: center; gap: 5mm; }
+    .qr { width: 26mm; height: 26mm; padding: 1.2mm; background: #fff; border-radius: 2mm; }
+    .footer .logo { color: #fff; font-size: 8mm; }
+    .footer p { margin: .7mm 0 0; font-size: 2.8mm; }
+    .links { text-align: right; font-size: 2.25mm; line-height: 1.7; }
+    .links a { color: #fff; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header><div class="logo">DAIDA+</div><h1>導入までの流れ・料金比較</h1></header>
+    <section>
+      <h2 class="section-title">他社ツールとの比較 <small>― スタッフ35名・1店舗で利用した場合の比較例</small></h2>
+      <table aria-label="DAIDA+と他社ツールの比較">
+        <thead><tr><th>項目</th><th class="daida">DAIDA+</th><th>A社</th><th>B社</th><th>C社</th></tr></thead>
+        <tbody>
+          <tr><td>料金システム</td><td class="daida">1店舗ごとの定額</td><td>1ユーザー課金</td><td>1ユーザー課金</td><td>完全無料</td></tr>
+          <tr><td>月額コスト<br>（35名の場合）</td><td class="daida">980円（税込）</td><td>15,750円</td><td>11,550円</td><td>0円</td></tr>
+          <tr><td>スタッフ登録数</td><td class="daida">何人でも一律料金</td><td>人数に応じて増加</td><td>人数に応じて増加</td><td>無料</td></tr>
+          <tr><td>個人連絡先の交換</td><td class="daida">不要</td><td>必要</td><td>必要</td><td>必要</td></tr>
+          <tr><td>動作・データ通信量</td><td class="daida">必要な機能に絞った軽量設計</td><td>○ 通常</td><td>○ 通常</td><td>△ 動作の遅さを指摘する声も</td></tr>
+        </tbody>
+      </table>
+      <p class="compare-note">※2026年8月時点の各社公開情報をもとに作成しています。※C社については、Google Playの公開レビューを参考にしています。※料金・サービス内容は変更される場合があります。最新情報は各社公式サイトをご確認ください。</p>
+    </section>
+    <div class="middle">
+      <section><h2 class="section-title">よくある質問</h2><div class="faq card">
+        <div class="faq-item"><h3>Q. 代理募集以外の連絡にも利用できますか？</h3><p>いいえ。DAIDA+は代理募集に関する機能に特化しています。</p></div>
+        <div class="faq-item"><h3>Q. 複数の店舗で勤務するスタッフも利用できますか？</h3><p>はい。勤務する店舗ごとに登録すれば、それぞれの店舗から代理募集を受け取れます。</p></div>
+        <div class="faq-item"><h3>Q. 誰が代理募集を作成できますか？</h3><p>店舗責任者や時間帯責任者など、管理者権限を持つ方が作成できます。</p></div>
+      </div></section>
+      <section><h2 class="section-title">料金</h2><div class="pricing card">
+        <div class="release">【リリース記念】</div><div class="free">まずは3か月間、完全無料！</div>
+        <p class="sub">（ご利用回数に関係なく0円）</p><p class="after">その後も月2回まで無料</p>
+        <div class="plan-label">4か月目以降・月3回以上ご利用の場合のお支払いプラン</div>
+        <div class="plans"><div class="plan">1か月<strong>980円（税込）</strong></div><div class="plan">3か月<strong>2,352円（税込）</strong><em>20%OFF</em></div><div class="plan">1年<strong>5,880円（税込）</strong><em>50%OFF</em></div></div>
+        <p class="note">※同じメールアドレスで2店舗目以降を登録される場合、無料期間は適用されません。</p>
+      </div></section>
+    </div>
+    <section class="guide card">
+      <h2 class="section-title">スタッフ登録ガイド</h2>
+      <div class="steps"><div class="step"><b>1</b><strong>QRコード読み取り</strong><span>店舗用QRコードを読み取ります</span></div><div class="step"><b>2</b><strong>お名前登録</strong><span>店舗で分かる名前を登録します</span></div><div class="step"><b>3</b><strong>通知を許可</strong><span>募集のお知らせを受け取ります</span></div></div>
+      <p class="iphone"><strong>iPhoneをご利用の方：</strong> 共有ボタン →「ホーム画面に追加」→ DAIDA+を開く → 通知を許可</p>
+    </section>
+    <footer class="footer">
+      <img class="qr" src="assets/qr-code.png" alt="DAIDA+公式サイトのQRコード">
+      <div><div class="logo">DAIDA+</div><p>daida-store.jp</p><p>運営：オレンジトア</p></div>
+      <div class="links"><a href="../terms.html">利用規約</a><br><a href="../privacy.html">プライバシーポリシー</a><br><a href="../tokushoho.html">特定商取引法に基づく表記</a></div>
+    </footer>
+  </main>
+</body>
+</html>

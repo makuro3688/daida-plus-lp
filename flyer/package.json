@@ -1,0 +1,12 @@
+{
+  "name": "daida-plus-flyer",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "export": "node export.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "^1.55.0",
+    "qrcode": "^1.5.4"
+  }
+}

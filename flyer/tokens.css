@@ -1,0 +1,53 @@
+:root {
+  --daida-navy: #002890;
+  --daida-navy-light: #0030a0;
+  --daida-red: #d80010;
+  --daida-green: #007030;
+  --daida-yellow: #f8d800;
+  --daida-bg: #f8f8f8;
+  --daida-text: #1a1a1a;
+  --page-width: 210mm;
+  --page-height: 297mm;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #d9d9d9;
+  color: var(--daida-text);
+  font-family: "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+body { display: flex; justify-content: center; }
+
+.page {
+  position: relative;
+  width: var(--page-width);
+  height: var(--page-height);
+  overflow: hidden;
+  background: var(--daida-bg);
+}
+
+.logo { color: var(--daida-navy); font-weight: 900; letter-spacing: -.05em; }
+.marker { position: relative; z-index: 0; white-space: nowrap; }
+.marker::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -1%; right: -1%; bottom: .03em;
+  height: .28em;
+  background: var(--daida-yellow);
+  transform: rotate(-1deg);
+}
+.red { color: var(--daida-red); }
+.card { background: #fff; border: .45mm solid var(--daida-navy); border-radius: 4mm; }
+
+@page { size: A4; margin: 0; }
+@media print {
+  html, body { width: 210mm; height: 297mm; background: transparent; }
+  .page { margin: 0; box-shadow: none; }
+}
