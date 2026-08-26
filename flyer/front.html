@@ -6,58 +6,86 @@
   <title>DAIDA+ チラシ 表面</title>
   <link rel="stylesheet" href="tokens.css">
   <style>
-    .page { padding: 10mm 11mm 0; }
-    .top { display: grid; grid-template-columns: 1.2fr .8fr; gap: 7mm; height: 61mm; }
-    .headline { margin: 2mm 0 0; color: var(--daida-navy); font-size: 9.2mm; line-height: 1.25; font-weight: 900; letter-spacing: -.04em; }
-    .photo-placeholder { height: 56mm; border-radius: 5mm; background: #d5d8dc; border: .5mm dashed #8b929a; display: grid; place-content: center; color: #60666d; text-align: center; font-size: 3.4mm; font-weight: 700; }
-    .brand { margin-top: 1mm; display: flex; align-items: baseline; gap: 5mm; }
-    .brand .logo { font-size: 17mm; line-height: 1; }
-    .brand-copy { font-size: 7mm; font-weight: 900; color: var(--daida-navy); }
-    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-top: 5mm; }
-    .feature { min-height: 62mm; padding: 7mm 4mm; text-align: center; display: flex; flex-direction: column; justify-content: center; }
-    .feature-icon { width: 16mm; height: 16mm; margin: 0 auto 2mm; border-radius: 50%; background: #edf2ff; color: var(--daida-navy); display: grid; place-items: center; }
-    .feature-icon svg { width: 11mm; height: 11mm; overflow: visible; }
-    .feature h2 { margin: 0 0 2mm; color: var(--daida-navy); font-size: 4.5mm; line-height: 1.35; font-weight: 900; }
-    .feature p { margin: 0; font-size: 3.2mm; line-height: 1.55; font-weight: 600; }
-    .campaign { position: absolute; left: 11mm; right: 11mm; bottom: 49mm; padding: 8mm 7mm 6mm; border: 1mm solid var(--daida-red); border-radius: 5mm; background: #fff; text-align: center; }
-    .campaign-label { display: inline-block; margin-top: -9mm; padding: 1.5mm 8mm; border-radius: 99mm; background: var(--daida-red); color: #fff; font-size: 4mm; font-weight: 900; }
-    .campaign h2 { margin: 2mm 0 .5mm; color: var(--daida-red); font-size: 8.2mm; line-height: 1.25; font-weight: 900; }
-    .campaign .lead { margin: 0; font-size: 3.8mm; font-weight: 700; }
-    .campaign .after { margin: 2.5mm 0 0; color: var(--daida-navy); font-size: 4.4mm; line-height: 1.5; font-weight: 900; }
-    .campaign .price { color: var(--daida-red); font-size: 5.2mm; }
-    .campaign .note { margin: 2.5mm auto 0; padding-top: 2mm; border-top: .25mm solid #ccc; font-size: 2.8mm; line-height: 1.45; font-weight: 600; text-align: left; max-width: 170mm; }
-    .cta { position: absolute; left: 0; right: 0; bottom: 0; height: 46mm; padding: 5mm 11mm; background: var(--daida-navy); color: #fff; display: grid; grid-template-columns: 1fr 27mm 1fr; align-items: center; gap: 6mm; }
-    .cta-main { font-size: 6mm; line-height: 1.3; font-weight: 900; }
-    .qr { width: 27mm; height: 27mm; padding: 1.5mm; border-radius: 2mm; background: #fff; }
-    .cta-brand .logo { color: #fff; font-size: 8mm; }
-    .cta-brand p { margin: 1mm 0 0; font-size: 3.3mm; }
-    .more { margin-top: 2mm; color: var(--daida-yellow); font-size: 3.7mm; font-weight: 900; }
+    .page { background: #fff; }
+    .hero { position: relative; height: 91mm; overflow: hidden; background: #fff; }
+    .hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 54% 50%; }
+    .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,.98) 25%, rgba(255,255,255,.72) 43%, rgba(255,255,255,.08) 65%, rgba(255,255,255,0) 100%); }
+    .hero-copy { position: relative; z-index: 1; width: 119mm; padding: 11mm 0 0 8mm; }
+    .headline { margin: 0; color: var(--daida-navy); font-size: 9mm; line-height: 1.27; font-weight: 900; letter-spacing: -.05em; }
+    .headline-sub { display: block; margin-top: 2.5mm; color: #111; font-size: 5.8mm; line-height: 1.45; letter-spacing: -.04em; }
+    .brand { display: flex; align-items: flex-end; gap: 4mm; margin-top: 8mm; }
+    .brand .logo { color: var(--daida-navy); font-size: 15mm; line-height: .92; }
+    .brand-copy { padding-bottom: .6mm; color: #111; font-size: 5.1mm; line-height: 1.25; font-weight: 900; white-space: nowrap; }
+    .pronunciation { margin: 1.4mm 0 0 29mm; color: #111; font-size: 3.3mm; font-weight: 800; letter-spacing: .12em; }
+
+    .features { position: relative; height: 77mm; margin: 7mm 7mm 0; padding: 17mm 4mm 4mm; border: .55mm solid var(--daida-navy); border-radius: 5mm; background: #fff; }
+    .features-title { position: absolute; top: 0; left: 18mm; right: 18mm; height: 13mm; display: grid; place-items: center; border-radius: 0 0 5mm 5mm; background: var(--daida-navy); color: #fff; font-size: 5.7mm; line-height: 1; font-weight: 900; letter-spacing: .01em; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.5mm; height: 100%; }
+    .feature { padding: 3.5mm 3mm 2.5mm; text-align: center; display: flex; flex-direction: column; justify-content: center; border-right: .25mm dashed #9eb0dc; }
+    .feature:last-child { border-right: 0; }
+    .feature-icon { width: 15mm; height: 15mm; margin: 0 auto 2mm; border-radius: 50%; background: #edf2ff; color: var(--daida-navy); display: grid; place-items: center; }
+    .feature-icon svg { width: 10mm; height: 10mm; overflow: visible; }
+    .feature h2 { margin: 0 0 1.8mm; color: var(--daida-navy); font-size: 4.25mm; line-height: 1.35; font-weight: 900; }
+    .feature p { margin: 0; color: #111; font-size: 3mm; line-height: 1.48; font-weight: 700; }
+
+    .campaign { height: 69mm; margin: 6mm 7mm 0; padding: 5.5mm 6mm 4mm; border: .75mm solid var(--daida-red); border-radius: 5mm; background: linear-gradient(180deg, #fffdf1 0%, #fff 58%); text-align: center; }
+    .campaign-head { display: flex; align-items: center; justify-content: center; gap: 3mm; }
+    .campaign-label { display: inline-block; padding: 1.3mm 6mm; border-radius: 99mm; background: var(--daida-red); color: #fff; font-size: 3.6mm; line-height: 1; font-weight: 900; }
+    .campaign-period { color: var(--daida-navy); font-size: 3.2mm; font-weight: 900; }
+    .campaign h2 { margin: 2.2mm 0 .7mm; color: var(--daida-red); font-size: 8mm; line-height: 1.12; font-weight: 900; letter-spacing: -.04em; }
+    .campaign h2 strong { font-size: 12mm; line-height: .9; }
+    .campaign-lead { margin: 0; color: #111; font-size: 3.4mm; line-height: 1.45; font-weight: 800; }
+    .plan-row { display: flex; align-items: center; justify-content: center; gap: 5mm; margin-top: 2.6mm; padding: 2mm 4mm; border-radius: 3mm; background: #eef3ff; }
+    .plan-title { color: var(--daida-navy); font-size: 3.5mm; line-height: 1.35; font-weight: 900; }
+    .plan-price { color: #111; font-size: 3.2mm; font-weight: 800; }
+    .plan-price strong { color: var(--daida-red); font-size: 5.2mm; font-weight: 900; }
+    .plan-divider { width: .3mm; height: 9mm; background: #b9c6e8; }
+    .note { margin: 2mm auto 0; color: #333; font-size: 2.5mm; line-height: 1.4; font-weight: 650; text-align: left; max-width: 184mm; }
+
+    .cta { position: absolute; left: 0; right: 0; bottom: 0; height: 41mm; padding: 4mm 8mm; background: var(--daida-navy); color: #fff; display: grid; grid-template-columns: 1.05fr 25mm 1.05fr; align-items: center; gap: 5mm; }
+    .cta-main { font-size: 5.2mm; line-height: 1.35; font-weight: 900; }
+    .cta-main strong { color: var(--daida-yellow); font-size: 6.5mm; }
+    .qr { width: 25mm; height: 25mm; padding: 1.2mm; border-radius: 1.5mm; background: #fff; }
+    .cta-brand .logo { color: #fff; font-size: 8mm; line-height: 1; }
+    .cta-brand .logo small { font-size: 3mm; letter-spacing: 0; }
+    .cta-brand p { margin: 1.4mm 0 0; font-size: 3.2mm; font-weight: 700; }
+    .more { margin-top: 1.3mm; color: var(--daida-yellow); font-size: 3.3mm; font-weight: 900; }
   </style>
 </head>
 <body>
   <main class="page">
-    <section class="top">
-      <h1 class="headline">急な欠勤、<br>そのたびに<span class="marker">電話</span>して<br>いませんか？</h1>
-      <div class="photo-placeholder" role="img" aria-label="店舗スタッフ写真の差し替え位置">店舗スタッフ写真<br>推奨 960 × 1400px</div>
+    <section class="hero">
+      <img class="hero-photo" src="assets/staff-photo-main.jpg" alt="明るい店舗で働くスタッフ">
+      <div class="hero-copy">
+        <h1 class="headline">急な欠勤、<span class="headline-sub">そのたびに<span class="marker">電話</span>していませんか？</span></h1>
+        <div class="brand"><div class="logo">DAIDA+</div><div class="brand-copy">代理探しを、<span class="red marker">一斉募集</span>へ。</div></div>
+        <p class="pronunciation">（ダイダ）</p>
+      </div>
     </section>
-    <section class="brand">
-      <div class="logo">DAIDA+</div>
-      <div class="brand-copy">代理探しを、<span class="red marker">一斉募集</span>へ。</div>
-    </section>
+
     <section class="features">
-      <article class="feature card"><div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="15" y="7" width="28" height="48" rx="5"/><path d="M25 48h8"/><rect x="21" y="17" width="7" height="7" fill="currentColor" stroke="none"/><rect x="30" y="17" width="7" height="7" fill="currentColor" stroke="none"/><rect x="21" y="26" width="7" height="7" fill="currentColor" stroke="none"/><path d="M48 21c5 3 8 7 8 12M48 31c2 1 3 3 3 5"/></svg></div><h2>スマートフォンから<br>代理募集を送信</h2><p>登録スタッフへ<br>一斉にお知らせ</p></article>
-      <article class="feature card"><div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="27" width="38" height="29" rx="5"/><path d="M21 27v-8c0-7 5-12 11-12s11 5 11 12v8"/><circle cx="32" cy="40" r="3" fill="currentColor"/><path d="M32 43v6"/></svg></div><h2>社内限定</h2><p>登録スタッフだけが<br>対象だから安心</p></article>
-      <article class="feature card"><div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10l8 10-5 7c6 8 8 10 16 16l7-5 9 8-5 8c-3 4-9 3-14 0C24 47 14 37 8 25c-3-6-3-11 1-14l7-5"/><path d="M8 56L56 8" stroke="var(--daida-red)" stroke-width="7"/></svg></div><h2>個人SNSで<br>つながらなくていい</h2><p>仕事の連絡は、<br>仕事の仕組みで</p></article>
+      <div class="features-title">DAIDA+なら、代理探しがもっとシンプルに。</div>
+      <div class="features-grid">
+        <article class="feature"><div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="15" y="7" width="28" height="48" rx="5"/><path d="M25 48h8"/><rect x="21" y="17" width="7" height="7" fill="currentColor" stroke="none"/><rect x="30" y="17" width="7" height="7" fill="currentColor" stroke="none"/><rect x="21" y="26" width="7" height="7" fill="currentColor" stroke="none"/><path d="M48 21c5 3 8 7 8 12M48 31c2 1 3 3 3 5"/></svg></div><h2>スマートフォンから<br>代理募集を送信</h2><p>登録スタッフへ<br>一斉にお知らせ</p></article>
+        <article class="feature"><div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="27" width="38" height="29" rx="5"/><path d="M21 27v-8c0-7 5-12 11-12s11 5 11 12v8"/><circle cx="32" cy="40" r="3" fill="currentColor"/><path d="M32 43v6"/></svg></div><h2>社内限定</h2><p>登録スタッフだけが<br>対象だから安心</p></article>
+        <article class="feature"><div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10l8 10-5 7c6 8 8 10 16 16l7-5 9 8-5 8c-3 4-9 3-14 0C24 47 14 37 8 25c-3-6-3-11 1-14l7-5"/><path d="M8 56L56 8" stroke="var(--daida-red)" stroke-width="7"/></svg></div><h2>個人SNSで<br>つながらなくていい</h2><p>仕事の連絡は、<br>仕事の仕組みで</p></article>
+      </div>
     </section>
+
     <section class="campaign">
-      <div class="campaign-label">リリース記念キャンペーン</div>
-      <h2>まずは3か月間、完全無料！</h2>
-      <p class="lead">（ご利用回数に関係なく、初回3か月は0円）</p>
-      <p class="after">4か月目以降は、月2回まで無料<br>月3回以上のご利用月のみ <span class="price">月額980円（税込）</span></p>
-      <p class="note">※同じメールアドレスで2店舗目以降を登録される場合、本キャンペーンの無料期間は適用されません。</p>
+      <div class="campaign-head"><div class="campaign-label">リリース記念キャンペーン</div><div class="campaign-period">2026年10月31日までの初回登録で</div></div>
+      <h2>登録日から <strong>3か月間</strong> 0円</h2>
+      <p class="campaign-lead">ご利用回数に関係なく、期間中のDAIDA+利用料0円</p>
+      <div class="plan-row">
+        <div class="plan-title">無料期間終了後は<br>有料プランへの加入で継続利用</div><div class="plan-divider" aria-hidden="true"></div>
+        <div class="plan-price">1か月 <strong>980円</strong>（税込）</div><div class="plan-divider" aria-hidden="true"></div>
+        <div class="plan-price">12か月 5,880円（税込）<br><strong>月あたり490円</strong></div>
+      </div>
+      <p class="note">※無料期間終了後、自動的に有料プランへ移行することはありません。<br>※同じメールアドレスによる2店舗目以降の登録には、無料期間は適用されません。<br>※キャンペーン開始前から利用している初回登録店舗は、2026年11月24日まで無料です。</p>
     </section>
+
     <footer class="cta">
-      <div class="cta-main">まずは無料で<br>お試しください！</div>
+      <div class="cta-main">まずは<strong>3か月無料</strong>で<br>お試しください！</div>
       <img class="qr" src="assets/qr-code.png" alt="DAIDA+公式サイトのQRコード">
       <div class="cta-brand"><div class="logo">DAIDA+ <small>（ダイダ）</small></div><p>daida-store.jp</p><div class="more">詳しくは裏面へ▶</div></div>
     </footer>
