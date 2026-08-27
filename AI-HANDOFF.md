@@ -52,6 +52,9 @@ DAIDA+は、外部人材の求人・派遣・一般公開型マッチングを�
 
 **`index.html`**
 
+旧URLの **`daida-homepage.html`** は重複した旧ホームページを表示せず、`index.html` へ転送する。
+関連ページの「ホームに戻る」リンクも `index.html` に統一する。
+
 画像:
 
 - **`photo2.jpg`**
