@@ -1,0 +1,22 @@
+# 改行コードの扱いを、環境ごとの設定に任せず、ここで決める。
+#
+# 【なぜ必要か】
+# このリポジトリは Windows と Linux の両方から編集されている。
+# 環境ごとに設定が違うと、**中身は同じなのに「全行変わった」ように見える**。
+# 2026-08-29、実際にこれが起きて、
+# 「CODEXが作業中だ」という誤った判断につながった（L-039）。
+#
+# 記録側（git の中）は LF に統一する。作業中のファイルも LF にする。
+# HTML・Markdown・Python・JavaScript は、Windows でも LF のままで問題ない。
+* text=auto eol=lf
+
+# バイナリは触らない。改行コードを書き換えると壊れる。
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.zip  binary
+*.woff binary
+*.woff2 binary
