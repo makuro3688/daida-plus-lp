@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DAIDA+ | FAXをご覧の方へ・社内限定代理出勤募集サービス</title>
+<!--
+  FAXチラシ（generate_daida_fax_pdf.py が出力するPDF）に印字するURLの着地ページ。
+  ⚠️ ファイル名は fax.html ではなく fax/index.html にしている。
+     多くの静的ホスティングは /fax にアクセスされた際 /fax/index.html を返すため、
+     /fax でも /fax/ でも同じページが開けるようにするため（index.html でも
+     同じ理由でルートに index.html を置いている）。
+
+  文言は書き下ろさず、既存の資産からそのまま持ってきている（LESSONS.md L-033）。
+    ・ヒーローコピー（見出し・リード文・eyebrow） … ../index.html の <section class="hero"> 部分
+    ・キャンペーン文言・注記 … scripts/generate_daida_fax_pdf.py（今回チラシに印字する文言そのもの）
+  見た目（配色・フォント指定）も ../index.html の :root 変数とfont-familyに揃えている。
+  外部CSS/フォントの読み込みは一切なく、このファイル単体で開ける。
+-->
+<style>
+  :root{
+    --navy:#12213b;
+    --blue:#2e5eff;
+    --blue-light:#e8edff;
+    --teal:#12b8a6;
+    --teal-dark:#0a7d70;
+    --blue-dark:#2450e0;
+    --gray:#5b6472;
+    --gray-light:#f5f7fb;
+    --border:#e4e8f0;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",Meiryo,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--navy);
+    line-height:1.75;
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;color:inherit;}
+  .wrap{max-width:720px;margin:0 auto;padding:0 24px;}
+
+  header{
+    padding:18px 0;border-bottom:1px solid var(--border);
+  }
+  .logo{
+    font-size:20px;font-weight:800;letter-spacing:0.5px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo .mark{
+    width:30px;height:30px;border-radius:9px;
+    background:linear-gradient(135deg,var(--blue),var(--teal));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:15px;font-weight:800;
+  }
+
+  .fax-note{
+    background:var(--gray-light);border-bottom:1px solid var(--border);
+    padding:14px 0;text-align:center;font-size:13.5px;color:var(--gray);
+  }
+
+  .hero{
+    padding:56px 0 40px;text-align:center;
+    background:
+      radial-gradient(700px 420px at 85% -10%, #dfe8ff 0%, rgba(223,232,255,0) 60%),
+      radial-gradient(600px 400px at -10% 30%, #d9f7f2 0%, rgba(217,247,242,0) 60%),
+      var(--white);
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--blue-light);color:var(--blue);
+    font-size:13px;font-weight:700;padding:7px 16px;border-radius:999px;
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-size:32px;line-height:1.45;font-weight:800;letter-spacing:0.5px;
+    margin-bottom:18px;
+  }
+  .hero h1 span{color:var(--blue);}
+  .hero h1 .hero-title-context{
+    display:block;color:var(--navy);font-size:0.66em;line-height:1.5;margin-bottom:4px;
+  }
+  .hero h1 .hero-title-question{
+    display:block;font-size:1em;line-height:1.35;
+  }
+  .hero .sub{
+    font-size:17px;font-weight:700;color:var(--navy);line-height:1.65;margin-bottom:14px;
+  }
+  .hero p.lead{
+    font-size:15px;color:var(--gray);max-width:520px;margin:0 auto 30px;
+  }
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:11px 22px;border-radius:999px;font-weight:700;font-size:14px;
+    transition:all .2s ease;white-space:nowrap;cursor:pointer;border:none;
+  }
+  .btn-primary{background:var(--blue);color:#fff;box-shadow:0 8px 20px -6px rgba(46,94,255,0.55);}
+  .btn-primary:hover{background:#2450e0;}
+  .btn-lg{padding:16px 34px;font-size:16px;}
+
+  .campaign{
+    max-width:560px;margin:0 auto 18px;
+    background:linear-gradient(90deg,var(--blue-dark),var(--teal-dark));
+    color:#fff;border-radius:16px;padding:20px 24px;text-align:center;
+  }
+  .campaign strong{display:block;font-size:19px;margin-bottom:6px;}
+  .campaign p{font-size:13.5px;color:#eaf0ff;line-height:1.7;margin:0;}
+
+  .conditions{
+    max-width:560px;margin:0 auto 48px;text-align:left;
+    font-size:12.5px;color:var(--gray);line-height:1.9;
+  }
+  .conditions p{margin-bottom:4px;}
+
+  footer{
+    padding:28px 0;border-top:1px solid var(--border);text-align:center;
+    font-size:12px;color:var(--gray);
+  }
+  footer a{color:var(--blue-dark);text-decoration:underline;}
+
+  @media (max-width:520px){
+    .hero h1{font-size:26px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo"><span class="mark">D+</span>DAIDA+</div>
+  </div>
+</header>
+
+<div class="fax-note">
+  FAXチラシをご覧いただき、ありがとうございます。こちらがDAIDA+のご案内ページです。
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <!-- eyebrow・見出し・リード文は ../index.html の <section class="hero"> と同一文言（L-033）。 -->
+    <span class="eyebrow">🏪 社内限定・代理出勤募集サービス</span>
+    <h1><span class="hero-title-context">急な欠勤やシフト変更、</span><span class="hero-title-question">そのたびに電話していませんか？</span></h1>
+    <p class="sub">一人ずつ電話する代理探しから、<br>スタッフへの一斉募集へ。</p>
+    <p class="lead">DAIDA+は、急な欠勤時に登録スタッフへ代理出勤を一斉募集できる社内限定サービスです。</p>
+
+    <!-- キャンペーン文言は scripts/generate_daida_fax_pdf.py が印字する文言と同一にしている。 -->
+    <div class="campaign">
+      <strong>2026年10月31日までのご登録で 3か月無料</strong>
+      <p>登録日から3か月間、代理募集を回数制限なしでご利用いただけます。</p>
+    </div>
+
+    <p style="margin-bottom:28px;">
+      <a class="btn btn-primary btn-lg" href="https://app.daida-store.jp/signup.html?src=fax">無料で始める</a>
+    </p>
+
+    <div class="conditions">
+      <p>※無料期間終了後に代理募集を利用するには、有料プランへの加入が必要です。</p>
+      <p>※無料期間終了後、自動的に有料プランへ移行することはありません。</p>
+      <p>※同じメールアドレスで2店舗目以降を登録される場合、無料期間は適用されません。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="https://daida-store.jp/">DAIDA+ 公式サイトへ戻る</a>
+</footer>
+
+</body>
+</html>

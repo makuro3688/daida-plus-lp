@@ -286,7 +286,10 @@ def draw_pdf() -> str:
     text(c, PAGE_W / 2, 47.0 * mm, "10月31日まで3か月無料｜料金・導入方法は公式サイトへ", 13, "Meiryo-Bold", "center")
     ux, uy, uw, uh = LEFT + 18 * mm, 33.0 * mm, WIDTH - 36 * mm, 10.0 * mm
     rect(c, ux, uy, uw, uh, 1.5)
-    text(c, PAGE_W / 2, uy + 2.6 * mm, "https://daida-store.jp/", 18.5, "Meiryo-Bold", "center", limit=uw - 6 * mm)
+    # 【2026-08-30】FAX経由の登録を数えられるようにするため、専用ページ(/fax)へ変更。
+    # ⚠️ ここを直したら、着地先の daida-plus-lp/fax/index.html も必ず同じ工程で
+    # 用意されていること（L-038：URLだけ変えて配る紙が置き去りにならないように）。
+    text(c, PAGE_W / 2, uy + 2.6 * mm, "https://daida-store.jp/fax", 18.5, "Meiryo-Bold", "center", limit=uw - 6 * mm)
 
     text(c, LEFT, 26.0 * mm, "送信元：オレンジトア（DAIDA+運営）", 10.5)
     text(c, LEFT, 20.5 * mm, "FAX配信停止をご希望の場合は、お手数ですが、", 10.5)
