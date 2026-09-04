@@ -116,6 +116,13 @@ else
   fail 'AC-1 workflow declaration'
 fi
 
+if grep -q "RCLONE_RELEASE_VERSION: '1.75.0'" "$ROOT/.github/workflows/backup-to-google-drive.yml" \
+  && ! grep -qE '^[[:space:]]+RCLONE_VERSION:' "$ROOT/.github/workflows/backup-to-google-drive.yml"; then
+  pass 'AC-1 rclone release version avoids reserved RCLONE_VERSION environment variable'
+else
+  fail 'AC-1 rclone release version environment name'
+fi
+
 if grep -q 'sync --delete' "$ROOT/scripts/backup/backup-storage.sh"; then
   fail 'AC-3 Storage must not use deletion-propagating sync'
 else
