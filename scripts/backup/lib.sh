@@ -102,6 +102,8 @@ upload_snapshot_to_prefix() {
 trash_expired_snapshots() {
   local class="$1" retention_days="$2"
   [[ "$retention_days" =~ ^[1-9][0-9]{0,3}$ ]] || backup_die "invalid ${class} retention days."
+  # 初回はmonthly等の保存先がまだ存在しないため、空の保存先を先に確保する。
+  rclone mkdir "gdrive:${GDRIVE_ROOT}/snapshots/${class}"
   rclone delete "gdrive:${GDRIVE_ROOT}/snapshots/${class}" \
     --min-age "${retention_days}d" \
     --drive-use-trash=true \

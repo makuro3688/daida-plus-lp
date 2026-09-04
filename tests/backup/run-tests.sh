@@ -45,6 +45,9 @@ elif [[ "$1" == 'size' ]]; then
   printf '{"count":1,"bytes":%s,"sizeless":0}\n' "$size"
 elif [[ "$1" == 'delete' ]]; then
   exit 0
+elif [[ "$1" == 'mkdir' ]]; then
+  target="${MOCK_GDRIVE_ROOT}/${2#gdrive:}"
+  mkdir -p "$target"
 else
   echo "unexpected rclone invocation: $*" >&2
   exit 2
