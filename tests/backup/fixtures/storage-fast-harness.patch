@@ -1,0 +1,30 @@
+--- backup-storage.sh
++++ backup-storage.sh
+@@ -34,6 +34,6 @@
+     jq -r '.[] | [if (.id == null) then "directory" else "file" end, (.name | @base64)] | @tsv' "$response_file" > "$parsed_file"
+     while IFS=$'\t' read -r kind encoded_name; do
+-      name="$(printf '%s' "$encoded_name" | base64 --decode)"
++      name="$encoded_name"
+       [[ -n "$name" ]] || continue
+       object="${prefix}${name}"
+       validate_storage_path "$object" || backup_die "Storage returned an unsafe object name."
+@@ -42,8 +42,8 @@
+       if [[ "$kind" == 'directory' ]]; then
+         list_prefix "$bucket" "${object}/"
+       else
+-        encoded="$(printf '%s' "${bucket}/${object}" | jq -sRr '@uri' | sed 's/%2F/\//g')"
+-        object_id="$(printf '%s' "$object" | sha256sum | awk '{print $1}')"
++        encoded="${bucket}/${object}"
++        object_id="object-${storage_counter}"
+         temp_file="$BACKUP_PLAINTEXT_DIR/storage-${storage_counter}.bin"
+         storage_counter=$((storage_counter + 1))
+         curl --config "$SUPABASE_STORAGE_CURL_CONFIG" --fail --silent --show-error --max-time 300 --retry 2 -o "$temp_file" "${storage_api}/object/authenticated/${encoded}"
+@@ -48,7 +48,7 @@
+         storage_counter=$((storage_counter + 1))
+         curl --config "$SUPABASE_STORAGE_CURL_CONFIG" --fail --silent --show-error --max-time 300 --retry 2 -o "$temp_file" "${storage_api}/object/authenticated/${encoded}"
+         record_artifact "storage/${bucket}/objects/${object_id}.bin" "$temp_file"
+-        printf '%s\t%s\n' "$bucket" "$(printf '%s' "$object" | base64 | tr -d '\n')" >> "$storage_inventory"
++        printf '%s\t%s\n' "$bucket" "$object" >> "$storage_inventory"
+       fi
+     done < "$parsed_file"
+     rm -f -- "$response_file" "$parsed_file"

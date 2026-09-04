@@ -1,0 +1,10 @@
+# age 復号用秘密鍵は、暗号化バックアップそのものと別に絶対に追跡しない。
+backup-key.txt
+*.agekey
+*.age-secret-key
+backup-signing-private.pem
+pg_service.conf
+supabase-db-url
+storage-curl.conf
+*.pgpass
+.secure-github-stage/
