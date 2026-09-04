@@ -53,20 +53,16 @@ else
 fi
 EOF
 
-cat > "$mockbin/supabase" <<'EOF'
+cat > "$mockbin/docker" <<'EOF'
 #!/usr/bin/env bash
 set -Eeuo pipefail
-output=''; mode='schema'
-while [[ "$#" -gt 0 ]]; do
-  case "$1" in
-    -f) output="$2"; shift 2 ;;
-    --role-only) mode='roles'; shift ;;
-    --data-only) mode='data'; shift ;;
-    *) shift ;;
-  esac
-done
-[[ -n "$output" ]] || exit 2
-printf '%s\n' "-- mock Supabase ${mode} dump" > "$output"
+case " $* " in
+  *' pg_dumpall '*) sql='CREATE ROLE "backup_test";' ;;
+  *' --data-only '*) sql='INSERT INTO "public"."backup_test" VALUES (1);' ;;
+  *' --schema-only '*) sql='CREATE TABLE "public"."backup_test" ("id" integer);' ;;
+  *) exit 2 ;;
+esac
+printf '%s\n' "$sql"
 EOF
 
 cat > "$mockbin/git" <<'EOF'
@@ -84,7 +80,7 @@ else
   exit 2
 fi
 EOF
-chmod +x "$mockbin/rclone" "$mockbin/supabase" "$mockbin/git"
+chmod +x "$mockbin/rclone" "$mockbin/docker" "$mockbin/git"
 
 if [[ "$crypto_mode" != real-age ]]; then
   cat > "$mockbin/age" <<'EOF'
@@ -126,6 +122,7 @@ export RCLONE_CONFIG_GDRIVE_CLIENT_SECRET='test-client-secret'
 export RCLONE_CONFIG_GDRIVE_TOKEN='{"access_token":"test-only"}'
 chmod 600 "$temporary/supabase-db-url"
 export SUPABASE_DB_URL_FILE="$temporary/supabase-db-url"
+export SUPABASE_POSTGRES_IMAGE='public.ecr.aws/supabase/postgres:test@sha256:0000000000000000000000000000000000000000000000000000000000000000'
 export BACKUP_SIGNING_KEY_FILE="$temporary/signing-private.pem"
 export GDRIVE_RESIDUAL_RISK_ACCEPTED=true
 export BACKUP_STORAGE_ENABLED=false

@@ -40,8 +40,8 @@ jobs:
       GITHUB_TOKEN: ${{ github.token }}
       GITHUB_REPOSITORY: ${{ github.repository }}
       GITHUB_SERVER_URL: ${{ github.server_url }}
-      SUPABASE_CLI_VERSION: '2.67.1'
-      SUPABASE_CLI_TARBALL_SHA256: '7326f45a3354b6e44d948e4c6500ea9813247268887403ddfe9691ac2033f80e'
+      # Digest-pin the same PostgreSQL 17 client image used by Supabase CLI 2.67.1.
+      SUPABASE_POSTGRES_IMAGE: 'public.ecr.aws/supabase/postgres:17.6.1.064@sha256:4c6d67181e482549bab276e8ae933f807be59ea1c371c225d85c189b0c14b9de'
 
     steps:
       - name: Check out backup scripts
@@ -77,18 +77,11 @@ jobs:
           rclone version | head -n 1 | grep -Fxq "rclone v${RCLONE_RELEASE_VERSION}"
           rm -rf "$archive" "rclone-v${RCLONE_RELEASE_VERSION}-linux-amd64"
 
-      - name: Install and verify Supabase CLI
+      - name: Pull pinned Supabase PostgreSQL client image
         shell: bash
         run: |
           set -Eeuo pipefail
-          curl --fail --location --retry 3 --proto '=https' --tlsv1.2 \
-            --output supabase.tar.gz \
-            "https://github.com/supabase/cli/releases/download/v${SUPABASE_CLI_VERSION}/supabase_linux_amd64.tar.gz"
-          echo "${SUPABASE_CLI_TARBALL_SHA256}  supabase.tar.gz" | sha256sum --check --status
-          tar -xzf supabase.tar.gz
-          install -m 0755 supabase /usr/local/bin/supabase
-          test "$(supabase --version)" = "$SUPABASE_CLI_VERSION"
-          rm -f supabase supabase.tar.gz
+          docker pull "$SUPABASE_POSTGRES_IMAGE"
 
       - name: Check required runner tools
         shell: bash
