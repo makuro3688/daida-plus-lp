@@ -8,7 +8,7 @@
 - 保存先: 専用Google Driveアカウントの`DAIDA-BACKUPS`
 - 暗号化: age公開鍵暗号化。復号秘密鍵は暗号化USBに保管
 - 改ざん検知: Ed25519署名。公開検証鍵はGoogle Driveと別に保管
-- DB: Supabase CLIによる`roles.sql`・`schema.sql`・`data.sql`
+- DB: ダイジェスト固定したPostgreSQL 17公式クライアントによる`roles.sql`・`schema.sql`・`data.sql`
 - Git: `clone --mirror`の暗号化アーカイブ
 - Storage: 本番にバケットがないため現在は無効
 - 保持: daily 35日、monthly 400日。削除はDriveのゴミ箱へ移動
@@ -29,6 +29,7 @@
 - 本番Supabaseは`makuro3688's Project` / `main` / Project Ref `xhkamtfwmzgueltekilo`と確認済み。
 - 本番Supabase Storageにバケットがないことを確認済み。
 - Renderサービス`shift-help-notify-app`はDBパスワードを環境変数に持たず、Supabase API資格情報を使用していることを確認済み。
+- GitHub Actionsの初回手動バックアップrun #7（`33844247753`）が2026-09-04に成功。Google Driveで`_SUCCESS`、`manifest.tsv.age`、署名、暗号化済みDB 3ファイル、暗号化済みGitミラー（21.1 MB）を確認済み。
 
 ## 専用DBユーザーの実測
 
@@ -51,7 +52,7 @@
 ## コードの現在地
 
 - `.github/workflows/backup-to-google-drive.yml`: Google Drive版workflow。
-- `scripts/backup/backup-db.sh`: `SUPABASE_BACKUP_DB_URL`を0600一時ファイルから読み、固定・検証済みSupabase CLIで3分割dumpを作成。
+- `scripts/backup/backup-db.sh`: `SUPABASE_BACKUP_DB_URL`を0600一時ファイルから読み、ダイジェスト固定したPostgreSQL 17公式クライアントで、管理者ロールへ切り替えず3分割dumpを作成。
 - `scripts/backup/test-db-connection.sh`: 実接続、書込み権限ゼロ、schema/data/roles dump可否を安全な一時領域で検証。
 - `scripts/backup/setup-google-drive-rclone.sh`: `drive.file`限定rclone設定支援。
 - `docs/backup/`: Google Drive運用、専用DBユーザー、復旧手順、復旧台帳。
@@ -60,13 +61,13 @@
 
 ## 最新テスト
 
-2026-09-04、Bash構文検査と`tests/backup/run-tests.sh`を実行し、**passed=23 failed=0**。正常系、設定不足、外部コマンド失敗、空dump、暗号化・アップロード失敗、Storage 0/1/1000/1001件、途中HTTP失敗、実age/OpenSSLによる暗号化・署名・復号、4種類の改ざん拒否に合格した。リポジトリ対象の秘密情報スキャンも合格。
+2026-09-04、Bash構文検査と`tests/backup/run-tests.sh`を実行し、**passed=24 failed=0**。正常系、設定不足、外部コマンド失敗、空dump、暗号化・アップロード失敗、Storage 0/1/1000/1001件、途中HTTP失敗、実age/OpenSSLによる暗号化・署名・復号、4種類の改ざん拒否に合格した。リポジトリ対象の秘密情報スキャンも合格。
 
 ## 残作業
 
-1. ローカルの全テストとsecret scan、`git diff --check`を再実行する。
-2. 変更内容をユーザー確認後にcommit / pushする。
-3. Actionsを手動実行し、暗号化スナップショットとDrive上のサイズを確認する。
-4. 月次復号検査、3か月ごとの隔離復元を実施する。
+1. 次回の日次自動実行（JST 04:00）が成功することをActionsで確認する。
+2. 月1回、最新スナップショットをUSBへ複製し、復号・署名検査を行う。
+3. 3か月ごとに隔離した検証環境へDBとGitを復元する。
+4. 必要に応じて、30時間成功通知がない場合に知らせる外部ハートビート監視を設定する。
 
 Google Driveには変更不能ロックがない。OAuthまたは専用Googleアカウント自体が侵害されるとバックアップを削除され得るため、月1回、暗号化済みスナップショットを別USBへ複製する。

@@ -6,7 +6,7 @@
 
 | 対象 | 保存方法 | 注意 |
 |---|---|---|
-| Supabase DB | `roles.sql` / `schema.sql` / `data.sql` をSupabase CLIで作成 | Storage実ファイルはDBバックアップに含まれません |
+| Supabase DB | PostgreSQL 17公式クライアントで`roles.sql` / `schema.sql` / `data.sql`を作成 | Storage実ファイルはDBバックアップに含まれません |
 | Supabase Storage | 有効化されたバケットの全オブジェクトを日時別に取得 | `sync --delete`は使いません |
 | Git リポジトリ | GitHubから`clone --mirror`し全参照をアーカイブ | 未コミットのローカル作業は含まれません |
 | Issue/PR/コメント/Wiki/Releases/LFS/Actions Secrets/環境設定 | **含まれない** | 下記の復旧台帳で別管理します |
@@ -15,7 +15,7 @@ Supabase公式も、論理DBバックアップは`roles`・`schema`・`data`を�
 
 ## 事前設定（本番画面でユーザーが行うこと）
 
-> 重要: 本番のSecretsはrepository-levelではなく、保護されたGitHub Environmentへ登録します。`backup-scheduled`と`backup-manual`の両方を既定ブランチのみに限定し、manual側だけrequired reviewerを設定します。schedule側は日次自動実行を妨げない保護規則にします。2026-09-04に両Environmentの作成・`main`限定、現在の構成で必要なSecretsとVariablesの登録、manual側のrequired reviewer設定まで完了しました。workflowファイルはまだcommit / pushしていないため、自動実行は有効になっていません。
+> 重要: 本番のSecretsはrepository-levelではなく、保護されたGitHub Environmentへ登録します。`backup-scheduled`と`backup-manual`の両方を既定ブランチのみに限定し、manual側だけrequired reviewerを設定します。schedule側は日次自動実行を妨げない保護規則にします。2026-09-04に両Environmentの作成・`main`限定、現在の構成で必要なSecretsとVariablesの登録、manual側のrequired reviewer設定まで完了しました。workflowは`main`へ反映済みで、毎日JST 04:00の自動実行が有効です。同日に初回手動バックアップ（Actions run #7）が成功し、Google Drive上の完了マーカーと暗号化済みDB・Gitミラーを確認しました。
 
 ### 1. age 鍵
 
@@ -72,7 +72,7 @@ Google DriveにはR2 Bucket Lock相当の削除ロックがありません。自
 
 `age`はワークフロー内でv1.3.2へ固定し、公式リリースに掲載されたSHA-256で検証します。更新時はバージョン・URL・SHA-256を同じ変更としてレビューしてください。
 
-Supabase CLIもnpm実行時取得を使わず、v2.67.1公式`supabase_linux_amd64.tar.gz`とRelease掲載SHA-256をworkflow内に固定して検証します。DB URL/Storage key/署名鍵は0600の一時ファイルへだけ書き、各工程終了後に削除します。Supabase CLIは接続URLを引数として必要とするため、DB資格情報は読み取り専用ユーザーへ限定し、他のGoogle/GitHub/Storage資格情報をプロセス環境から除外します。
+DBダンプには、ダイジェスト固定したPostgreSQL 17公式コンテナを使います。Supabase CLIと同等の対象除外フィルタを維持しつつ、管理者ロールへの切替は行いません。DB URL/Storage key/署名鍵は0600の一時ファイルへだけ書き、各工程終了後に削除します。DB接続URLはDockerの一時環境ファイルからコンテナへ渡し、ホスト側のコマンド引数やログへ出しません。DB資格情報は読み取り専用ユーザーへ限定します。
 
 Google Driveは削除ロックを提供しません。本番有効化前に、専用アカウント、`drive.file`スコープ、daily 35日・monthly 400日、確認日、確認者、月次USB複製先を`recovery-inventory.md`へ記録してください。`GDRIVE_RESIDUAL_RISK_ACCEPTED=true`は、この残存リスクを理解したことの記録であり、防御機能そのものではありません。
 
