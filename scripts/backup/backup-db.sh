@@ -30,13 +30,14 @@ pg_env_file="$(mktemp)"
 cleanup_db_env() { rm -f -- "$pg_env_file"; }
 trap cleanup_db_env EXIT
 chmod 600 "$pg_env_file"
-printf 'PGDATABASE=%s\nPGSSLMODE=require\nPGOPTIONS=-c statement_timeout=0\n' "$db_url" > "$pg_env_file"
+printf 'PGURI=%s\nPGSSLMODE=require\nPGOPTIONS=-c statement_timeout=0\n' "$db_url" > "$pg_env_file"
 db_url=''
 unset db_url db_url_lines
 
 run_pg_client() {
   docker run --rm --network host --env-file "$pg_env_file" \
-    "$POSTGRES_CLIENT_IMAGE" "$@"
+    "$POSTGRES_CLIENT_IMAGE" \
+    sh -c 'client=$1; shift; exec "$client" --dbname="$PGURI" "$@"' sh "$@"
 }
 
 mkdir -p "$BACKUP_PLAINTEXT_DIR/db"
