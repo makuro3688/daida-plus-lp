@@ -40,8 +40,8 @@ jobs:
       GITHUB_TOKEN: ${{ github.token }}
       GITHUB_REPOSITORY: ${{ github.repository }}
       GITHUB_SERVER_URL: ${{ github.server_url }}
-      # Digest-pin the same PostgreSQL 17 client image used by Supabase CLI 2.67.1.
-      SUPABASE_POSTGRES_IMAGE: 'public.ecr.aws/supabase/postgres:17.6.1.064@sha256:4c6d67181e482549bab276e8ae933f807be59ea1c371c225d85c189b0c14b9de'
+      # PostgreSQL 17 official image. Pin the multi-platform manifest digest.
+      POSTGRES_CLIENT_IMAGE: 'postgres:17.11-alpine3.23@sha256:06b0072465383084b1c18b6943260fc509c175a9e3f26752ba71362c1cd1d316'
 
     steps:
       - name: Check out backup scripts
@@ -77,11 +77,11 @@ jobs:
           rclone version | head -n 1 | grep -Fxq "rclone v${RCLONE_RELEASE_VERSION}"
           rm -rf "$archive" "rclone-v${RCLONE_RELEASE_VERSION}-linux-amd64"
 
-      - name: Pull pinned Supabase PostgreSQL client image
+      - name: Pull pinned PostgreSQL client image
         shell: bash
         run: |
           set -Eeuo pipefail
-          docker pull "$SUPABASE_POSTGRES_IMAGE"
+          docker pull "$POSTGRES_CLIENT_IMAGE"
 
       - name: Check required runner tools
         shell: bash

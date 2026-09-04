@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/lib.sh"
 
 require_env SUPABASE_DB_URL_FILE
-require_env SUPABASE_POSTGRES_IMAGE
+require_env POSTGRES_CLIENT_IMAGE
 require_env BACKUP_PLAINTEXT_DIR
 require_command docker
 [[ -f "$SUPABASE_DB_URL_FILE" ]] || backup_die 'SUPABASE_DB_URL_FILE is missing.'
@@ -17,8 +17,8 @@ if [[ "${OS:-}" == Windows_NT || "$(uname -s)" == MINGW* ]]; then
 else
   [[ "$(stat -c '%a' "$SUPABASE_DB_URL_FILE")" == 600 ]] || backup_die 'SUPABASE_DB_URL_FILE must be mode 0600.'
 fi
-[[ "$SUPABASE_POSTGRES_IMAGE" =~ ^public\.ecr\.aws/supabase/postgres:[A-Za-z0-9._-]+@sha256:[a-f0-9]{64}$ ]] \
-  || backup_die 'SUPABASE_POSTGRES_IMAGE must be a digest-pinned Supabase image.'
+[[ "$POSTGRES_CLIENT_IMAGE" =~ ^postgres:17\.[0-9]+-alpine[0-9.]+@sha256:[a-f0-9]{64}$ ]] \
+  || backup_die 'POSTGRES_CLIENT_IMAGE must be a digest-pinned PostgreSQL 17 official image.'
 
 mapfile -t db_url_lines < "$SUPABASE_DB_URL_FILE"
 [[ "${#db_url_lines[@]}" == 1 ]] || backup_die 'SUPABASE_DB_URL_FILE must contain exactly one line.'
@@ -36,7 +36,7 @@ unset db_url db_url_lines
 
 run_pg_client() {
   docker run --rm --network host --env-file "$pg_env_file" \
-    "$SUPABASE_POSTGRES_IMAGE" "$@"
+    "$POSTGRES_CLIENT_IMAGE" "$@"
 }
 
 mkdir -p "$BACKUP_PLAINTEXT_DIR/db"

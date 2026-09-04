@@ -122,7 +122,7 @@ export RCLONE_CONFIG_GDRIVE_CLIENT_SECRET='test-client-secret'
 export RCLONE_CONFIG_GDRIVE_TOKEN='{"access_token":"test-only"}'
 chmod 600 "$temporary/supabase-db-url"
 export SUPABASE_DB_URL_FILE="$temporary/supabase-db-url"
-export SUPABASE_POSTGRES_IMAGE='public.ecr.aws/supabase/postgres:test@sha256:0000000000000000000000000000000000000000000000000000000000000000'
+export POSTGRES_CLIENT_IMAGE='postgres:17.11-alpine3.23@sha256:0000000000000000000000000000000000000000000000000000000000000000'
 export BACKUP_SIGNING_KEY_FILE="$temporary/signing-private.pem"
 export GDRIVE_RESIDUAL_RISK_ACCEPTED=true
 export BACKUP_STORAGE_ENABLED=false

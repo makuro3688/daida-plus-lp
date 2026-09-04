@@ -82,7 +82,7 @@ printf '%s\n' 'postgresql://backup-reader:test-only@test.invalid:5432/postgres' 
 printf '%s\n' 'mock signing key' > "$temporary/signing.pem"
 chmod 600 "$temporary/supabase-db-url" "$temporary/signing.pem"
 export SUPABASE_DB_URL_FILE="$temporary/supabase-db-url"
-export SUPABASE_POSTGRES_IMAGE='public.ecr.aws/supabase/postgres:test@sha256:0000000000000000000000000000000000000000000000000000000000000000'
+export POSTGRES_CLIENT_IMAGE='postgres:17.11-alpine3.23@sha256:0000000000000000000000000000000000000000000000000000000000000000'
 export BACKUP_SIGNING_KEY_FILE="$temporary/signing.pem"
 export GDRIVE_RESIDUAL_RISK_ACCEPTED=true
 export BACKUP_STORAGE_ENABLED='false'
@@ -160,8 +160,8 @@ if grep -q 'pkeyutl -verify' "$ROOT/scripts/backup/inspect-backup.sh" && grep -q
 if grep -q 'type == "array"' "$ROOT/scripts/backup/backup-storage.sh" && ! grep -q 'SUPABASE_STORAGE_SERVICE_ROLE_KEY' "$ROOT/scripts/backup/backup-storage.sh"; then pass 'SR-M1/M4 Storage schema and credential-file controls'; else fail 'SR-M1/M4'; fi
 if grep -q -- '--no-psqlrc' "$ROOT/scripts/backup/restore-db.sh" && ! grep -q 'target-db-url' "$ROOT/scripts/backup/restore-db.sh"; then pass 'SR-M3 URL argv is removed and psqlrc disabled'; else fail 'SR-M3'; fi
 if grep -q 'backup-manual' "$ROOT/.github/workflows/backup-to-google-drive.yml" && grep -q 'backup-scheduled' "$ROOT/.github/workflows/backup-to-google-drive.yml" && grep -q 'GDRIVE_RESIDUAL_RISK_ACCEPTED' "$ROOT/scripts/backup/run-backup.sh"; then pass 'SR-M7/M8 event-separated Environment and residual-risk attestation required'; else fail 'SR-M7/M8'; fi
-if grep -q 'public.ecr.aws/supabase/postgres:17.6.1.064@sha256:4c6d67181e482549bab276e8ae933f807be59ea1c371c225d85c189b0c14b9de' "$ROOT/.github/workflows/backup-to-google-drive.yml" \
-  && ! grep -q -- '--role "postgres"' "$ROOT/scripts/backup/backup-db.sh"; then pass 'R-M1 digest-pinned Supabase PostgreSQL image without admin role switch'; else fail 'R-M1 PostgreSQL image pin and least privilege'; fi
+if grep -q 'postgres:17.11-alpine3.23@sha256:06b0072465383084b1c18b6943260fc509c175a9e3f26752ba71362c1cd1d316' "$ROOT/.github/workflows/backup-to-google-drive.yml" \
+  && ! grep -q -- '--role "postgres"' "$ROOT/scripts/backup/backup-db.sh"; then pass 'R-M1 digest-pinned PostgreSQL official image without admin role switch'; else fail 'R-M1 PostgreSQL image pin and least privilege'; fi
 set +e
 if command -v rg >/dev/null 2>&1; then
   rg -n 'BEGIN (.* )?PRIVATE KEY|AGE-SECRET-KEY|password=' "$ROOT" \
