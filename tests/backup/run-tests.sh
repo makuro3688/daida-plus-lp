@@ -142,7 +142,9 @@ else
 fi
 
 if grep -q 'Issue/PR/コメント/Wiki/Releases/LFS/Actions Secrets' "$ROOT/docs/backup/README.md" \
-  && grep -q 'clone --mirror' "$ROOT/scripts/backup/backup-git.sh"; then
+  && grep -q 'clone --mirror' "$ROOT/scripts/backup/backup-git.sh" \
+  && grep -q 'AUTHORIZATION: basic' "$ROOT/scripts/backup/backup-git.sh" \
+  && ! grep -q 'AUTHORIZATION: bearer' "$ROOT/scripts/backup/backup-git.sh"; then
   pass 'AC-4 Git mirror and non-Git scope are documented'
 else
   fail 'AC-4 Git recovery scope'
