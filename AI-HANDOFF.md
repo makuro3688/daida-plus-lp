@@ -1,6 +1,6 @@
 # AI-HANDOFF.md — DAIDA+ プロジェクト引き継ぎ
 
-最終更新: 2026-08-21  
+最終更新: 2026-09-05
 用途: Codex / ChatGPT / Claude 等のAI間で、DAIDA+の確定仕様と現在地を共有する
 
 ---
@@ -727,17 +727,53 @@ DAIDA+店舗用QRコードを店内でスタッフがスマホ読み取りする
 
 1. `AGENTS.md` を読む
 2. この `AI-HANDOFF.md` を読む
-3. 現在の `index.html` を読む
-4. `photo2.jpg` / `photo3.jpg` の存在確認
-5. ユーザーの最新指示を確認
-6. 既存状態との差分を把握してから編集
-7. 変更後に厳格なチェックを行う
+3. バックアップ作業では `docs/backup/README.md` と `ops/backup/STATE.md` を読む
+4. 現在の `index.html` を読む
+5. `photo2.jpg` / `photo3.jpg` の存在確認
+6. ユーザーの最新指示を確認
+7. `git status` で既存状態との差分を把握してから編集
+8. 変更後に厳格なチェックを行う
 
 古いチャット履歴を推測して編集を始めない。
 
 ---
 
-# 29. 最重要原則
+# 29. 暗号化オフサイトバックアップの引き継ぎ
+
+2026-09-04に、Supabase DBとGitリポジトリを暗号化して専用Google Driveへ保存する仕組みを導入し、初回手動バックアップまで完了した。
+
+## 現在の正常状態
+
+- Workflow: `.github/workflows/backup-to-google-drive.yml`
+- 自動実行: 毎日 JST 04:00
+- 手動実行: GitHub Environment `backup-manual` で `makuro3688` の承認が必要
+- 定期実行: GitHub Environment `backup-scheduled`。reviewerは設定しない
+- 保存内容: age暗号化済みDB 3ファイル、暗号化済みGitミラー、マニフェスト、Ed25519署名、`_SUCCESS`
+- Supabase Storage: 現在バケットがないため無効
+- 初回成功: GitHub Actions run #7（run ID `33844247753`）
+- 初回スナップショット: `20260904T062535Z-33844247753-1`
+- テスト: `tests/backup/run-tests.sh` で passed=24 / failed=0
+- 詳細な正本: `ops/backup/STATE.md`
+
+## 次に確認すること
+
+1. 次回の日次自動実行が成功しているか確認する
+2. 失敗時はログを確認し、原因と最小修正案を提示する
+3. 月1回、暗号化済みスナップショットを別USBへ複製する
+4. 3か月ごとに隔離環境で復元テストを行う
+
+## セキュリティ上の禁止事項
+
+- age秘密鍵、秘密鍵のパスフレーズ、DB接続文字列、OAuth client secret、GitHub Secretsの値をAIチャットへ貼らない
+- GitHub ActionsのSecret値をログへ表示しない
+- `daida_backup_reader` の権限を拡大しない
+- ユーザーの明示承認なしに本番DBへ復元しない
+- 既存の未コミット変更や無関係なファイルを変更・stage・commitしない
+- Google Driveだけを唯一の復旧先とみなさない。変更不能ロックがないため、USBの別コピーを維持する
+
+---
+
+# 30. 最重要原則
 
 **このプロジェクトの正解はAIの記憶ではなく、  
 「ユーザーの最新指示 ＋ 現在の実ファイル ＋ この引き継ぎ文書」に置く。**
