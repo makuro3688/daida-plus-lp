@@ -1,0 +1,96 @@
+name: Backup ops reminders
+
+# バックアップ運用の手作業（USB複製・隔離復元テスト）を忘れないためのIssueを自動作成する。
+# バックアップ処理そのものには関与しない。この workflow が失敗してもバックアップは影響を受けない。
+on:
+  # GitHub Actions の cron は UTC。00:00 UTC = 毎月1日 09:00 JST。
+  schedule:
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+concurrency:
+  group: daida-backup-ops-reminders
+  cancel-in-progress: false
+
+# Issue作成だけを許可。バックアップ用のSecretsやEnvironmentは使わない。
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  remind:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+
+    steps:
+      - name: Create backup operation reminders
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          month="$(TZ=Asia/Tokyo date '+%m')"
+          stamp="$(TZ=Asia/Tokyo date '+%Y-%m')"
+
+          # 同じタイトルのIssueが開いていれば作らない。手動実行や再実行で重複しない。
+          create_issue() {
+            local title="$1"
+            local body="$2"
+            if gh issue list --state open --limit 200 --json title --jq '.[].title' \
+              | grep -Fxq "$title"; then
+              echo "skip (already open): ${title}"
+              return 0
+            fi
+            gh issue create --title "$title" --body "$body"
+          }
+
+          monthly_body="$(printf '%s\n' \
+            'Google Driveには変更不能ロックがありません。OAuthまたは専用Googleアカウント自体が侵害された場合、バックアップを削除され得ます。Driveを唯一の復旧先にしないため、月1回の複製を行ってください。' \
+            '' \
+            '## 手順' \
+            '' \
+            '- [ ] Google Drive の `DAIDA-BACKUPS/snapshots/daily/` から最新スナップショットを取得' \
+            '- [ ] 別の暗号化USBへ複製' \
+            '- [ ] age秘密鍵で復号できることを確認' \
+            '- [ ] `root-manifest.tsv` の署名を、信頼済みのEd25519公開鍵で検証' \
+            '- [ ] `docs/backup/recovery-inventory.md` へ実施日・実施者・複製先を記録' \
+            '' \
+            '## 注意' \
+            '' \
+            '- Drive上に置かれた公開鍵や署名だけを信頼しない' \
+            '- age秘密鍵、パスフレーズ、DB接続文字列、OAuth関連の値をIssueへ書かない' \
+            "- 実行履歴: ${REPO_URL}/actions" \
+            '' \
+            '詳細は `docs/backup/README.md` と `docs/backup/restore.md` を参照してください。')"
+
+          create_issue "[バックアップ運用] ${stamp} 暗号化USBへの複製" "$monthly_body"
+
+          # 3・6・9・12月は隔離環境での復元テストも実施する。
+          case "$month" in
+            03|06|09|12)
+              quarterly_body="$(printf '%s\n' \
+                '復元できないバックアップは、バックアップとして機能しません。3か月ごとに実際の復元を確認してください。' \
+                '' \
+                '## 手順' \
+                '' \
+                '- [ ] 本番ではなく、ネットワーク分離または別アカウントの検証環境を用意' \
+                '- [ ] 最新スナップショットを復号し、署名を検証' \
+                '- [ ] `roles.sql` / `schema.sql` / `data.sql` を検証用DBへ復元' \
+                '- [ ] Gitミラーを別の場所へ復元し、参照が揃っているか確認' \
+                '- [ ] 所要時間と、詰まった箇所を記録' \
+                '- [ ] `docs/backup/recovery-inventory.md` を更新' \
+                '' \
+                '## 注意' \
+                '' \
+                '- ユーザーの明示承認なしに本番DBへ復元しない' \
+                '- `daida_backup_reader` の権限を拡大しない' \
+                '- Gitミラーだけでは戻らない項目（Supabase Auth設定、Storageポリシー、Render環境変数、Cloudflare DNS、Actions Secrets等）は復旧台帳で確認する' \
+                '' \
+                '詳細は `docs/backup/restore.md` を参照してください。')"
+
+              create_issue "[バックアップ運用] ${stamp} 隔離環境での復元テスト" "$quarterly_body"
+              ;;
+          esac
